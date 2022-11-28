@@ -1,0 +1,9 @@
+export 'login/controllers/login_controller.dart';
+export 'login/views/login_view.dart';
+export 'login/bindings/login_binding.dart';
+export 'auth/views/splash_view.dart';
+export 'auth/bindings/auth_binding.dart';
+export 'auth/controllers/auth_controller.dart';
+export 'sign_up/controllers/sign_up_controller.dart';
+export 'sign_up/views/sign_up_view.dart';
+export 'sign_up/bindings/sign_up_binding.dart';
