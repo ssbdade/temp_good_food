@@ -1,13 +1,17 @@
 abstract class AppImage {
-  static const cakeImage = 'assets/img/cake_img.jpg';
-  static const vanillaCake = 'assets/img/vanilla_cake.webp';
-  static const darkAuthBg = 'assets/img/dark_auth_bg.jpg';
-  static const chefIcon = 'assets/icons/chef.png';
-  static const darkBg = 'assets/img/dark_bg.jpg';
-  static const veganForest = 'assets/img/Vegan-Black-Forest-Trifle.jpg';
-  static const chevronBack = 'assets/icons/chevron-back.svg';
-  static const darkSplashBg = 'assets/img/dark_splash_bg.jpg';
-  static const lightSplashBg = 'assets/img/light_splash_bg.jpg';
-  static const lightDashboardBg = 'assets/img/dash_board_light_bg.jpg';
-  static const threeDotIcon = 'assets/icons/three-dots-svgrepo-com.svg';
+  static const bell = 'assets/icons/bell.svg';
+  static const menu = 'assets/icons/menu.svg';
+  static const frame = 'assets/img/Frame.svg';
+  static const girl = 'assets/img/girl.png';
+  static const phone = 'assets/icons/phone.svg';
+  static const message = 'assets/icons/message-circle.svg';
+  static const img3 = 'assets/img/wearMask.png';
+  static const img2 = 'assets/img/cleanHand.png';
+  static const img1 = 'assets/img/avoidClose.png';
+  static const homeIcon = 'assets/icons/ic_round-home.svg';
+  static const statsIcon = 'assets/icons/gridicons_stats.svg';
+  static const news = 'assets/icons/ion_newspaper.svg';
+  static const alert = 'assets/icons/ant-design_info-circle-filled.svg';
+
+
 }

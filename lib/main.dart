@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         designSize: const Size(375, 812),
         builder: (_, __) => GetMaterialApp.router(
           debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.dark,
+          themeMode: ThemeMode.light,
           theme: AppThemes.lightTheme,
           darkTheme: AppThemes.darkTheme,
           getPages: AppPages.routes,
