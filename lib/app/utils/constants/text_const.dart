@@ -10,4 +10,5 @@ abstract class KeyConst {
   static const String avoidClose = 'Avoid close contact';
   static const String cleanHand = 'Clean your hand often';
   static const String wearMask = 'Wear a facemask';
+  static const String statistics = 'Statistics';
 }

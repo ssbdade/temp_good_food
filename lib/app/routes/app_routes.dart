@@ -9,6 +9,7 @@ abstract class Routes {
 
   static const AUTH = _Paths.AUTH;
   static const LOGIN = _Paths.LOGIN;
+  static const STATS = _Paths.STATS;
   static const SIGNUP = _Paths.SIGNUP;
   static const DETAIL = _Paths.DETAIL;
   static const DASHBOARD = _Paths.DASHBOARD;
@@ -56,4 +57,5 @@ abstract class _Paths {
   static const TEST = '/test';
   static const SPLASH = '/splash';
   static const AUTH = '/auth';
+  static const STATS = '/stats';
 }

@@ -66,7 +66,10 @@ final TextTheme lightTextTheme = TextTheme(
   // * Used for auxiliary text associated with images.
   caption: AppThemes.textStyle.copyWith(
       fontFamily: 'Graphik',
-      fontSize: size(12)),
+      fontSize: size(11),
+      color: HexColor('#999FBF'),
+      fontWeight: FontWeight.w300,
+  ),
   // * Used for text on ElevatedButton, TextButton and OutlinedButton.
   button: AppThemes.textStyle.copyWith(
       fontFamily: 'Graphik',

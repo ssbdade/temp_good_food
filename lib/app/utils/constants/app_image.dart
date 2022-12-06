@@ -12,6 +12,7 @@ abstract class AppImage {
   static const statsIcon = 'assets/icons/gridicons_stats.svg';
   static const news = 'assets/icons/ion_newspaper.svg';
   static const alert = 'assets/icons/ant-design_info-circle-filled.svg';
-
+  static const dropdown = 'assets/icons/Vector.svg';
+  static const usa = 'assets/icons/usa.png';
 
 }

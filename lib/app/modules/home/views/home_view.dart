@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,6 +19,7 @@ class HomePageView extends GetView<HomeController> {
   const HomePageView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(left: 24.w, top: 48.h, right: 24.w),
@@ -41,14 +45,26 @@ class HomePageView extends GetView<HomeController> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Container(
-                  height: 40.h,
-                  width: 116.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.r),
-                    color: const Color(0xffEBF1FF),
-                  ),
-                ),
+                Obx(() => DropdownButton2(
+                  value: controller.dropdownValue.value,
+                    icon: SvgPicture.asset(AppImage.dropdown),
+                  buttonPadding: EdgeInsets.only(right: 16.w, left: 8.w),
+                  buttonHeight: 40.h,
+                    buttonWidth: 116.w,
+                    buttonDecoration: BoxDecoration(
+                      color: AppColors.gray,
+                      borderRadius: BorderRadius.circular(50.r),
+                    ),
+                    items: listItem.map((item) =>
+                        DropdownMenuItem<MenuItem>(
+                          value: item,
+                          child: MenuItems.buildItem(item),
+                        ))
+                        .toList(),
+                    onChanged: (MenuItem? value) {
+                      print(value?.text);
+                      controller.dropdownValue.value = value!;
+                    }),),
               ],
             ),
             SizedBox(
@@ -139,7 +155,7 @@ class HomePageView extends GetView<HomeController> {
             ),
             Text(
               KeyConst.prevention,
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.headline4!.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -186,6 +202,46 @@ class HomePageView extends GetView<HomeController> {
   }
 }
 
+List<MenuItem> listItem = [usa, jap, fran, spn];
+
+MenuItem usa = MenuItem(text: 'USA', icon: AppImage.usa);
+MenuItem jap = MenuItem(text: 'JAP', icon: AppImage.usa);
+MenuItem fran = MenuItem(text: 'FRA', icon: AppImage.usa);
+MenuItem spn = MenuItem(text: 'SPN', icon: AppImage.usa);
+
+
+class MenuItem {
+  final String text;
+  final String icon;
+
+  const MenuItem({
+    required this.text,
+    required this.icon,
+  });
+}
+
+class MenuItems {
+
+  static Widget buildItem(MenuItem item) {
+    return Row(
+      children: [
+        Image.asset(item.icon,
+          height: 24.h,
+        ),
+        SizedBox(
+          width: 8.w,
+        ),
+        Text(
+          item.text,
+          style: TextStyle(
+            color: AppColors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
+}
 
 
 
