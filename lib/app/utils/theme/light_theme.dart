@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../common/common.dart';
 import 'app_colors.dart';
 import 'app_theme.dart';
@@ -7,58 +8,73 @@ import 'color_theme.dart';
 final TextTheme lightTextTheme = TextTheme(
   // * Extremely large text.
   headline1: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(28),
       fontWeight: FontWeight.w600,
       color: ColorsTheme.lightTextColor),
   // * Used for the date in the dialog shown by showDatePicker.
   headline2: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(24),
       fontWeight: FontWeight.w500,
       color: ColorsTheme.lightTextColor),
   // * Very large text.
   headline3: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(22),
       fontWeight: FontWeight.w400,
       color: ColorsTheme.lightTextColor),
   // * Large text.
   headline4: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(20),
       fontWeight: FontWeight.w700,
       color: ColorsTheme.lightTextColor),
   // * Used for large text in dialogs (e.g., the month and year in the dialog shown by showDatePicker).
   headline5: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(18),
       fontWeight: FontWeight.w600,
       color: ColorsTheme.lightTextColor),
   // * Used for the primary text in app bars and dialogs (e.g., AppBar.title and AlertDialog.title).
   headline6: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(16),
       fontWeight: FontWeight.w600,
       color: ColorsTheme.onBackgroundLight),
   // * Used for the primary text in lists (e.g., ListTile.title).
   subtitle1: AppThemes.textStyle.copyWith(
+    fontFamily: 'Graphik',
       fontSize: size(12),
       fontWeight: FontWeight.w400,
   ),
   // * For medium emphasis text that's a little smaller than subtitle1.
   subtitle2: AppThemes.textStyle.copyWith(
+    fontFamily: 'Graphik',
       fontSize: size(14),
       fontWeight: FontWeight.w400,
   ),
   // * Used for emphasizing text that would otherwise be bodyText2.
   bodyText1: AppThemes.textStyle
-      .copyWith(fontSize: size(12),),
+      .copyWith(fontSize: size(12),
+    fontFamily: 'Graphik',
+  ),
   // * The default text style for Material.
-  bodyText2: AppThemes.textStyle.copyWith(fontSize: size(14)),
+  bodyText2: AppThemes.textStyle.copyWith(fontSize: size(14),
+    fontFamily: 'Graphik',
+  ),
   // * Used for auxiliary text associated with images.
   caption: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(12)),
   // * Used for text on ElevatedButton, TextButton and OutlinedButton.
   button: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(14),
       fontWeight: FontWeight.w600),
   // * Typically used for captions or to introduce a (larger) headline.
   overline: AppThemes.textStyle.copyWith(
+      fontFamily: 'Graphik',
       fontSize: size(16),
       fontWeight: FontWeight.w600),
   //

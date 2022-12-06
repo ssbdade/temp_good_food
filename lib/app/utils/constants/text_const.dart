@@ -1,27 +1,13 @@
 abstract class KeyConst {
-  static const String yourEmail = 'Your Email';
-  static const String username = 'Username';
-  static const String password = 'Password';
-  static const String forgotPassword = 'Forgot Password?';
-  static const String logIn = 'Log In';
-  static const String dontHaveAccount = 'Don\'t have account? ';
-  static const String signUp = 'Sign Up';
-  static const String confirmPassword = 'Confirm Password';
-  static const String alreadyHaveAccount = 'Already have account? ';
-  static const String goodFood = 'Good Food';
-  static const String authDescription =
-      'Nutritionally balanced, easy to cook recipes. Quality fresh local ingredients.';
-  static const String createAccount = 'Create Account';
-  static const String welcomeBack = 'Welcome back to';
-  static const String remember = 'Remember';
-  static const String forgot = 'Forgot?';
-  static const String signUpTitle = 'Let\' start making \ngood meals';
-  static const String deliciouslySimple = 'Deliciously Simple';
-  static const String startCooking = 'Start Cooking';
-  static const String dashboardMainTitle = '20 Weekend\nDinner Recipes';
-  static const String dashboardMainDescription = '20 Easy-to-do meal ideas';
-  static const String viewMore = 'View more';
-  static const String featured = 'Featured';
-  static const String popular = 'Popular';
-  static const String newText = 'New';
+  static const String covid19 = 'Covid-19';
+  static const String doYourOwnTest = 'Do your own test!';
+  static const String followInstruction = 'Follow the instructions to do your own test.';
+  static const String feelingSick = 'Are you feeling sick?';
+  static const String help = 'If you feel sick with any of covid-19 symptoms please call or SMS us immediately for help.';
+  static const String callNow = 'Call Now';
+  static const String sendSMS = 'Send SMS';
+  static const String prevention = 'Prevention';
+  static const String avoidClose = 'Avoid close contact';
+  static const String cleanHand = 'Clean your hand often';
+  static const String wearMask = 'Wear a facemask';
 }

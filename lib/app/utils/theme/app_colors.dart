@@ -8,6 +8,16 @@ abstract class AppColors {
   static Color oliveGreen100 = HexColor("#B9E4C9");
   static Color orange = HexColor("#FD5523");
   static Color cornSilk = HexColor("#FFFBE6");
+
+  static Color white = Colors.white;
+  static Color black = Colors.black;
+  static Color lightPurple = HexColor('#AEA1E6');
+  static Color darkPurple = HexColor('#56549E');
+  static Color red = HexColor('#FF4D58');
+  static Color blue = HexColor('#4D79FF');
+  
+
+
 }
 
 
