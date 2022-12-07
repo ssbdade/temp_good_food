@@ -44,6 +44,41 @@ class AppBarChart extends StatelessWidget {
   }
 }
 
+class Point {
+  int x;
+  double y;
+
+  Point(this.x, this.y);
+
+}
+
+List<Point> data = [
+  Point(0, 8.0),
+  Point(1, 9.1),
+  Point(2, 8.2),
+  Point(3, 14.0),
+  Point(4, 10.0),
+  Point(5, 15.0),
+];
+
+List<BarChartGroupData> generateBarGroupData(List<Point> data) {
+  List<BarChartGroupData> barGroupsGen = List.generate(data.length, (index) => BarChartGroupData(
+    x: data[index].x,
+    barRods: [
+      BarChartRodData(
+        toY: data[index].y,
+        color: HexColor('#FF5959'),
+      )
+    ],
+  ),);
+
+  return barGroupsGen;
+}
+
+
+
+
+
 List<BarChartGroupData> get barGroups => [
   BarChartGroupData(
     x: 0,
@@ -145,29 +180,8 @@ Widget getTitles(double value, TitleMeta meta) {
   );
   String text;
   switch (value.toInt()) {
-    case 0:
-      text = 'Apr 1';
-      break;
-    case 1:
-      text = 'Apr 2';
-      break;
-    case 2:
-      text = 'Apr 3';
-      break;
-    case 3:
-      text = 'Apr 4';
-      break;
-    case 4:
-      text = 'Apr 5';
-      break;
-    case 5:
-      text = 'Apr 6';
-      break;
-    case 6:
-      text = 'Apr 7';
-      break;
     default:
-      text = '';
+      text = 'Apr ${value.toInt()}';
       break;
   }
   return SideTitleWidget(
@@ -184,25 +198,14 @@ Widget getVerticalTitles(double value, TitleMeta meta) {
     fontSize: 11,
   );
   String text;
-  switch (value.toInt()) {
-    case 0:
-      text = '0';
-      break;
-    case 5:
-      text = '5k';
-      break;
-    case 10:
-      text = '10k';
-      break;
-    case 15:
-      text = '15k';
-      break;
-    case 20:
-      text = '20k';
-      break;
-    default:
-      text = '';
-      break;
+  if (value.toInt() % 5 == 0) {
+    text = '${value.toInt()}k';
+  }
+  else if (value.toInt() == 0) {
+    text = '0';
+  }
+  else {
+    text = '';
   }
   return SideTitleWidget(
     axisSide: AxisSide.right,

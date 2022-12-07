@@ -42,26 +42,28 @@ class HomePageView extends GetView<HomeController> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                 DropdownButton2(
-                  value: controller.dropdownValue.value,
-                    icon: SvgPicture.asset(AppImage.dropdown),
-                  buttonPadding: EdgeInsets.only(right: 16.w, left: 8.w),
-                  buttonHeight: 40.h,
-                    buttonWidth: 116.w,
-                    buttonDecoration: BoxDecoration(
-                      color: AppColors.gray,
-                      borderRadius: BorderRadius.circular(50.r),
-                    ),
-                    items: listItem.map((item) =>
-                        DropdownMenuItem<MenuItem>(
-                          value: item,
-                          child: MenuItems.buildItem(item),
-                        ))
-                        .toList(),
-                    onChanged: (MenuItem? value) {
-                      print(value?.text);
-                      controller.dropdownValue.value = value!;
-                    }),
+                Obx(() =>  DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    value: controller.dropdownValue.value,
+                      icon: SvgPicture.asset(AppImage.dropdown),
+                    buttonPadding: EdgeInsets.only(right: 16.w, left: 8.w),
+                    buttonHeight: 40.h,
+                      buttonWidth: 116.w,
+                      buttonDecoration: BoxDecoration(
+                        color: AppColors.gray,
+                        borderRadius: BorderRadius.circular(50.r),
+                      ),
+                      items: listItem.map((item) =>
+                          DropdownMenuItem<MenuItem>(
+                            value: item,
+                            child: MenuItems.buildItem(item),
+                          ))
+                          .toList(),
+                      onChanged: (MenuItem? value) {
+                        print(value?.text);
+                        controller.dropdownValue.value = value!;
+                      }),
+                ),)
               ],
             ),
             SizedBox(

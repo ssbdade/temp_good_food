@@ -11,4 +11,13 @@ abstract class KeyConst {
   static const String cleanHand = 'Clean your hand often';
   static const String wearMask = 'Wear a facemask';
   static const String statistics = 'Statistics';
+  static const String affected = 'Affected';
+  static const String total = 'Total';
+  static const String today = 'Today';
+  static const String yesterday = 'Yesterday';
+  static const String death = 'Death';
+  static const String recovered = 'Recovered';
+  static const String active = 'Active';
+  static const String serious = 'Serious';
+  static const String dailyNewCases = 'Daily New Cases';
 }

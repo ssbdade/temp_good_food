@@ -18,6 +18,11 @@ abstract class AppColors {
   static Color gray = HexColor('#EBF1FF');
   static Color switchBg = HexColor('#473F97').withOpacity(0.15);
   static Color grayBottomNav = HexColor('#999FBF');
+  static Color yellow = HexColor('#FFBD4C');
+  static Color green = HexColor('#4CD97B');
+  static Color blueAccent = HexColor('#4DB5FF');
+  static Color purple = HexColor('#8359FF');
+
   
 
 
