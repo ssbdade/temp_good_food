@@ -36,6 +36,8 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const ALERT = _Paths.ALERT;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const MYCOUNTRY_STATS = _Paths.MYCOUNTRY_STATS;
+  static const GLOBAL_STATS = _Paths.GLOBAL_STATS;
 }
 
 /* * Routes cho app
@@ -60,4 +62,6 @@ abstract class _Paths {
   static const STATS = '/stats';
   static const NEWS = '/news';
   static const ALERT = '/alert';
+  static const MYCOUNTRY_STATS = '/mycountry-stats';
+  static const GLOBAL_STATS = '/global-stats';
 }

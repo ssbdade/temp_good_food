@@ -31,7 +31,7 @@ class AppBarChart extends StatelessWidget {
               barTouchData: BarTouchData(
                 enabled: true,
               ),
-              barGroups: barGroups,
+              barGroups: generateBarGroupData(data),
               borderData: FlBorderData(show: false),
               titlesData: titlesData,
               alignment: BarChartAlignment.spaceAround,
@@ -59,6 +59,7 @@ List<Point> data = [
   Point(3, 14.0),
   Point(4, 10.0),
   Point(5, 15.0),
+  Point(6, 17.57),
 ];
 
 List<BarChartGroupData> generateBarGroupData(List<Point> data) {
@@ -74,79 +75,6 @@ List<BarChartGroupData> generateBarGroupData(List<Point> data) {
 
   return barGroupsGen;
 }
-
-
-
-
-
-List<BarChartGroupData> get barGroups => [
-  BarChartGroupData(
-    x: 0,
-    barRods: [
-      BarChartRodData(
-        toY: 8,
-        color: HexColor('#FF5959'),
-      )
-    ],
-
-  ),
-  BarChartGroupData(
-    x: 1,
-    barRods: [
-      BarChartRodData(
-        toY: 9,
-        color: HexColor('#FF5959'),
-      )
-    ],
-
-  ),
-  BarChartGroupData(
-    x: 2,
-    barRods: [
-      BarChartRodData(
-        toY: 8,
-        color: HexColor('#FF5959'),
-      )
-    ],
-
-  ),
-  BarChartGroupData(
-    x: 3,
-    barRods: [
-      BarChartRodData(
-        toY: 14,
-        color: HexColor('#FF5959'),
-      )
-    ],
-  ),
-  BarChartGroupData(
-    x: 4,
-    barRods: [
-      BarChartRodData(
-        toY: 10,
-        color: HexColor('#FF5959'),
-      )
-    ],
-  ),
-  BarChartGroupData(
-    x: 5,
-    barRods: [
-      BarChartRodData(
-        toY: 15,
-        color: HexColor('#FF5959'),
-      )
-    ],
-  ),
-  BarChartGroupData(
-    x: 6,
-    barRods: [
-      BarChartRodData(
-        toY: 17.57,
-        color: HexColor('#FF5959'),
-      )
-    ],
-  ),
-];
 
 
 FlTitlesData get titlesData => FlTitlesData(
@@ -181,7 +109,7 @@ Widget getTitles(double value, TitleMeta meta) {
   String text;
   switch (value.toInt()) {
     default:
-      text = 'Apr ${value.toInt()}';
+      text = 'Apr ${value.toInt() + 1}';
       break;
   }
   return SideTitleWidget(
