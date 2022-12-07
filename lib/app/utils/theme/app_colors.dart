@@ -17,6 +17,7 @@ abstract class AppColors {
   static Color blue = HexColor('#4D79FF');
   static Color gray = HexColor('#EBF1FF');
   static Color switchBg = HexColor('#473F97').withOpacity(0.15);
+  static Color grayBottomNav = HexColor('#999FBF');
   
 
 

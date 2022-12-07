@@ -12,11 +12,9 @@ abstract class Routes {
   static const STATS = _Paths.STATS;
   static const SIGNUP = _Paths.SIGNUP;
   static const DETAIL = _Paths.DETAIL;
-  static const DASHBOARD = _Paths.DASHBOARD;
   // static const DASHBOARD = _Paths.HOME + _Paths.DASHBOARD;
 
   Routes._();
-
 
   static const NOTIFICATION_PAGE = _Paths.NOTIFICATION_PAGE;
   static const MORE_PAGE = _Paths.MORE_PAGE;
@@ -36,6 +34,8 @@ abstract class Routes {
 
   static const TEST = _Paths.TEST;
   static const SPLASH = _Paths.SPLASH;
+  static const ALERT = _Paths.ALERT;
+  static const DASHBOARD = _Paths.DASHBOARD;
 }
 
 /* * Routes cho app
@@ -58,4 +58,6 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const AUTH = '/auth';
   static const STATS = '/stats';
+  static const NEWS = '/news';
+  static const ALERT = '/alert';
 }

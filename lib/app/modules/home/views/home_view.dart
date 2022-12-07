@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:temp_good_food/app/modules/widgets/app_button.dart';
 import 'package:temp_good_food/app/modules/widgets/preventionColumn.dart';
-import 'package:temp_good_food/app/utils/common/common.dart';
 import 'package:temp_good_food/app/utils/constants/app_image.dart';
 import 'package:temp_good_food/app/utils/constants/text_const.dart';
 import 'package:temp_good_food/app/utils/theme/app_colors.dart';
@@ -45,7 +42,7 @@ class HomePageView extends GetView<HomeController> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Obx(() => DropdownButton2(
+                 DropdownButton2(
                   value: controller.dropdownValue.value,
                     icon: SvgPicture.asset(AppImage.dropdown),
                   buttonPadding: EdgeInsets.only(right: 16.w, left: 8.w),
@@ -64,7 +61,7 @@ class HomePageView extends GetView<HomeController> {
                     onChanged: (MenuItem? value) {
                       print(value?.text);
                       controller.dropdownValue.value = value!;
-                    }),),
+                    }),
               ],
             ),
             SizedBox(
