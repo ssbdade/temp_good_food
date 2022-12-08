@@ -1,46 +1,34 @@
 import 'package:get/get.dart';
 
-import '../modules/alert/bindings/alert_binding.dart';
-import '../modules/alert/views/alert_view.dart';
-import '../modules/dashboard/bindings/dashboard_binding.dart';
-import '../modules/dashboard/views/dashboard_view.dart';
-import '../modules/modules.dart';
-import '../modules/news/bindings/news_binding.dart';
-import '../modules/news/views/news_view.dart';
-
+import '../modules/customer_page/bindings/customer_page_binding.dart';
+import '../modules/customer_page/views/customer_page_view.dart';
+import '../modules/database_page/bindings/database_page_binding.dart';
+import '../modules/database_page/views/database_page_view.dart';
+import '../modules/drawer/bindings/drawer_binding.dart';
+import '../modules/drawer/views/drawer_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DASHBOARD;
+  static const INITIAL = Routes.DRAWER;
 
   static final List<GetPage> routes = [
     GetPage(
       name: INITIAL,
-      page: () => const DashboardView(),
-      binding: DashboardBinding(),
+      page: () => const DrawerView(),
+      binding: DrawerBinding(),
     ),
     GetPage(
-      name: Routes.HOME,
-      page: () => const HomePageView(),
-      binding: HomeBinding(),
+      name: Routes.DATABASE,
+      page: () => const DatabasePageView(),
+      binding: DatabasePageBinding(),
     ),
     GetPage(
-        name: _Paths.STATS,
-        page: () => const StatsView(),
-        binding: StatsBinding()),
-    GetPage(
-      name: _Paths.NEWS,
-      page: () => NewsView(),
-      binding: NewsBinding(),
+      name: Routes.CUSTOMER,
+      page: () => const CustomerPageView(),
+      binding: CustomerPageBinding(),
     ),
-    GetPage(
-      name: _Paths.ALERT,
-      page: () => const AlertView(),
-      binding: AlertBinding(),
-    ),
-
   ];
 }
