@@ -6,11 +6,9 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const PROFILE = _Paths.HOME + _Paths.PROFILE;
   static const SETTINGS = _Paths.SETTINGS;
-  static const DATABASE = _Paths.DATABASE;
 
   static const AUTH = _Paths.AUTH;
   static const LOGIN = _Paths.LOGIN;
-  static const CUSTOMER = _Paths.CUSTOMER;
   static const STATS = _Paths.STATS;
   static const SIGNUP = _Paths.SIGNUP;
   static const DETAIL = _Paths.DETAIL;
@@ -40,7 +38,6 @@ abstract class Routes {
   static const DASHBOARD = _Paths.DASHBOARD;
   static const MYCOUNTRY_STATS = _Paths.MYCOUNTRY_STATS;
   static const GLOBAL_STATS = _Paths.GLOBAL_STATS;
-  static const DRAWER = _Paths.DRAWER;
 }
 
 /* * Routes cho app
@@ -63,10 +60,8 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const AUTH = '/auth';
   static const STATS = '/stats';
+  static const NEWS = '/news';
   static const ALERT = '/alert';
   static const MYCOUNTRY_STATS = '/mycountry-stats';
   static const GLOBAL_STATS = '/global-stats';
-  static const DATABASE = '/database';
-  static const CUSTOMER = '/customer';
-  static const DRAWER = '/drawer';
 }

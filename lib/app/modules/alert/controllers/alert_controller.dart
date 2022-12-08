@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:temp_good_food/app/data/data_bases_data.dart';
 
-
-class DatabasePageController extends GetxController {
-  //TODO: Implement DatabasePageController
-
-  RxInt pageIndex = 0.obs;
-
+class AlertController extends GetxController {
+  //TODO: Implement AlertController
 
   final count = 0.obs;
   @override
