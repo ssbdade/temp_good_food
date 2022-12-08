@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class NewsController extends GetxController {
-  //TODO: Implement NewsController
+class CustomerPageController extends GetxController {
+  //TODO: Implement CustomerPageController
 
   final count = 0.obs;
   @override

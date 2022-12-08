@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:temp_good_food/app/modules/modules.dart';
 import 'package:temp_good_food/app/utils/theme/app_colors.dart';
 
 class TextTab extends StatefulWidget {
-  const TextTab({Key? key, required this.tab,
+  TextTab({Key? key, required this.tab, this.onChange,
     // required this.tabView
   }) : super(key: key);
 
+  final Function()? onChange;
   final List<String> tab;
+  int currentTab = 0;
   // final List<Widget> tabView;
 
   @override
@@ -14,7 +17,7 @@ class TextTab extends StatefulWidget {
 }
 
 class _TextTabState extends State<TextTab> {
-  int currentTab = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +27,15 @@ class _TextTabState extends State<TextTab> {
           GestureDetector(
             onTap: () {
               setState(() {
-                currentTab = index;
+                widget.currentTab = index;
               });
+              widget.onChange;
             },
             child: Text(
                 widget.tab[index],
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
                 fontWeight: FontWeight.w400,
-                color: currentTab == index ? AppColors.black : AppColors.grayBottomNav,
+                color: widget.currentTab == index ? AppColors.black : AppColors.grayBottomNav,
               ),
             ),
           )),
