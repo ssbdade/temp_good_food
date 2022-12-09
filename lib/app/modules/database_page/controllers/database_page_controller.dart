@@ -11,6 +11,10 @@ class DatabasePageController extends GetxController {
 
   RxBool isActive = true.obs;
 
+  final _formKey = GlobalKey<FormState>();
+
+  get formKey => _formKey;
+
   TextEditingController dbNameController = TextEditingController();
   TextEditingController dbIdController = TextEditingController();
   TextEditingController dbRoleController = TextEditingController();
