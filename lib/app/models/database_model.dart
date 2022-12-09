@@ -42,4 +42,8 @@ class DataBase {
     ];
   }
 
+  changeStatus(bool onChanged) {
+    isActive = onChanged;
+  }
+
 }
