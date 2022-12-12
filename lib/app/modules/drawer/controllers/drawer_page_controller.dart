@@ -10,8 +10,12 @@ class DrawerPageController extends GetxController {
 
   onTapDrawerItem(int pageIndex) {
     index.value = pageIndex;
-    Get.back();
+    // Get.back();
   }
+
+  RxInt tileIndex = 0.obs;
+
+
 
   List<Widget> pages = [
     const CustomerPageView(),
@@ -20,3 +24,4 @@ class DrawerPageController extends GetxController {
 
 
 }
+

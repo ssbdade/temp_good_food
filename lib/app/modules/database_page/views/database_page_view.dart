@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:temp_good_food/app/data/data_bases_data.dart';
 import 'package:temp_good_food/app/models/database_model.dart';
 import 'package:temp_good_food/app/modules/widgets/app_text_field.dart';
-import 'package:temp_good_food/app/modules/widgets/data_table.dart';
+import 'package:temp_good_food/app/modules/database_page/views/data_table.dart';
 
 import '../controllers/database_page_controller.dart';
 
@@ -181,11 +181,12 @@ class DatabasePageView extends GetView<DatabasePageController> {
                               ghiChu: controller.noteController.text,
                               isActive: controller.isActive.value));
                           Get.back();
+                          controller.clear();
+                          controller.update();
                         }
                         print('add');
                         print(controller.isActive.value);
-                        controller.clear();
-                        controller.update();
+
                       },
                       child: const Text(
                         'YES',
