@@ -15,6 +15,12 @@ class DatabasePageView extends GetView<DatabasePageController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => DatabasePageController());
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Quản lý Database',
+        ),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: GetBuilder<DatabasePageController>(builder: (context) {

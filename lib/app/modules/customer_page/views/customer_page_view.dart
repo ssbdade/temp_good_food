@@ -15,6 +15,10 @@ class CustomerPageView extends GetView<CustomerPageController> {
   Widget build(BuildContext context) {
     Get.put(CustomerPageController());
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Người dùng'),
+        centerTitle: true,
+      ),
       body:  SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: GetBuilder<CustomerPageController>(builder: (context) {
