@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:temp_good_food/app/data/data_bases_data.dart';
 import 'package:temp_good_food/app/models/database_model.dart';
+import 'package:temp_good_food/app/modules/drawer/views/panl.dart';
 import 'package:temp_good_food/app/modules/widgets/app_text_field.dart';
 import 'package:temp_good_food/app/modules/database_page/views/data_table.dart';
 
@@ -11,6 +13,9 @@ import '../controllers/database_page_controller.dart';
 
 class DatabasePageView extends GetView<DatabasePageController> {
   const DatabasePageView({Key? key}) : super(key: key);
+
+
+
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => DatabasePageController());
@@ -24,8 +29,13 @@ class DatabasePageView extends GetView<DatabasePageController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: GetBuilder<DatabasePageController>(builder: (context) {
-          return DataTableView(
-            data: controller.data,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DataTableView(
+                data: controller.data,
+              ),
+            ],
           );
         }),
       ),

@@ -1,132 +1,163 @@
 import 'package:flutter/material.dart';
 
-class Panel extends StatefulWidget {
-  const Panel({Key? key}) : super(key: key);
+const Duration _kExpand = const Duration(milliseconds: 200);
+
+class AppExpansionTile extends StatefulWidget {
+  const AppExpansionTile({
+    Key? key,
+    this.leading,
+    required this.title,
+    this.backgroundColor,
+    this.onExpansionChanged,
+    this.children = const <Widget>[],
+    this.trailing,
+    this.initiallyExpanded = false,
+  })
+      : super(key: key);
+
+  final Widget? leading;
+  final Widget title;
+  final ValueChanged<bool>? onExpansionChanged;
+  final List<Widget> children;
+  final Color? backgroundColor;
+  final Widget? trailing;
+  final bool initiallyExpanded;
 
   @override
-  State<Panel> createState() => _PanelState();
+  AppExpansionTileState createState() => AppExpansionTileState();
 }
 
+class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late CurvedAnimation _easeOutAnimation;
+  late CurvedAnimation _easeInAnimation;
+  late ColorTween _borderColor;
+  late ColorTween _headerColor;
+  late ColorTween _iconColor;
+  late ColorTween _backgroundColor;
+  late Animation<double> _iconTurns;
 
-class _PanelState extends State<Panel> {
-  bool isSelected = false;
-  bool isSelected2 = false;
+  bool _isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: _kExpand, vsync: this);
+    _easeOutAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    _easeInAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _borderColor = ColorTween();
+    _headerColor = ColorTween();
+    _iconColor = ColorTween();
+    _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+    _backgroundColor = ColorTween();
+
+    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    if (_isExpanded) {
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void expand() {
+    _setExpanded(true);
+  }
+
+  void collapse() {
+    print('object');
+    _setExpanded(false);
+  }
+
+  void toggle() {
+    _setExpanded(!_isExpanded);
+  }
+
+  void _setExpanded(bool isExpanded) {
+    if (_isExpanded != isExpanded) {
+      setState(() {
+        _isExpanded = isExpanded;
+        if (_isExpanded) {
+          _controller.forward();
+        } else {
+          _controller.reverse();
+            setState(() {
+              // Rebuild without widget.children.
+            });
+        }
+        PageStorage.of(context)?.writeState(context, _isExpanded);
+      });
+      if (widget.onExpansionChanged != null) {
+        widget.onExpansionChanged!(_isExpanded);
+      }
+    }
+  }
+
+  Widget _buildChildren(BuildContext context, Widget? child) {
+    final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
+    final Color? titleColor = _headerColor.evaluate(_easeInAnimation);
+
+    return Container(
+      decoration: BoxDecoration(
+          color: _backgroundColor.evaluate(_easeOutAnimation) ?? Colors.transparent,
+          border: Border(
+            top: BorderSide(color: borderSideColor),
+            bottom: BorderSide(color: borderSideColor),
+          )
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          IconTheme.merge(
+            data: IconThemeData(color: _iconColor.evaluate(_easeInAnimation)),
+            child: ListTile(
+              onTap: toggle,
+              leading: widget.leading,
+              title: DefaultTextStyle(
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .button!
+                    .copyWith(color: titleColor),
+                child: widget.title,
+              ),
+              trailing: widget.trailing ?? RotationTransition(
+                turns: _iconTurns,
+                child: const Icon(Icons.expand_more),
+              ),
+            ),
+          ),
+          ClipRect(
+            child: Align(
+              heightFactor: _easeInAnimation.value,
+              child: child,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    _borderColor.end = theme.dividerColor;
+    _headerColor
+      ..begin = theme.textTheme.button!.color
+      ..end = theme.colorScheme.secondary;
+    _iconColor
+      ..begin = theme.unselectedWidgetColor
+      ..end = theme.colorScheme.secondary;
+    _backgroundColor.end = widget.backgroundColor;
 
-    return ExpansionTile(
-      title: Text("Parent Category 1"),
-      leading: Icon(Icons.person), //add icon
-      // childrenPadding: EdgeInsets.only(left:60), //children padding
-      children: [
-        ListTile(
-          selected: isSelected,
-          selectedTileColor: Colors.red,
-          title: Padding(
-            padding: EdgeInsets.only(left:60),
-            child: Text("Child Category 1"),
-          ),
-          onTap: (){
-            //action on press
-          },
-        ),
-
-        ListTile(
-          selected: isSelected2,
-          title: Padding(
-            padding: EdgeInsets.only(left:60),
-            child: Text("Child Category 2"),
-          ),
-          onTap: (){
-            //action on press
-            setState(() {
-              isSelected2 = true;
-              isSelected = false;
-            });
-          },
-        ),
-
-        //more child menu
-      ],
-    );
-
-
-      ExpansionPanelList(
-      expansionCallback: (int index, bool isExpanded) {
-        data[index].isExpanded = !isExpanded;
-        setState(() {
-
-        });
-      },
-      children: data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          canTapOnHeader: false,
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text(item.headerValue),
-            );
-          },
-          body: Column(
-            children: [
-              ListTile(
-                selected: isSelected,
-                  tileColor: Colors.yellow,
-                  selectedTileColor: Colors.blue,
-                  title: Text(item.expandedValue),
-                  subtitle:
-                  const Text('To delete this panel, tap the trash can icon'),
-                  trailing: const Icon(Icons.delete),
-                  onTap: () {
-                    isSelected = true;
-                    isSelected2 = false;
-                    setState(() {
-
-                    });
-                  }),
-              ListTile(
-                  selected: isSelected2,
-                  title: Text(item.expandedValue),
-                  tileColor: Colors.yellow,
-                  selectedTileColor: Colors.blue,
-                  subtitle:
-                  const Text('To delete this panel, tap the trash can icon'),
-                  trailing: const Icon(Icons.delete),
-                  onTap: () {
-                    isSelected2 = true;
-                    isSelected = false;
-                    setState(() {
-
-                    });
-                  }),
-            ],
-          ),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
+    final bool closed = !_isExpanded && _controller.isDismissed;
+    return AnimatedBuilder(
+      animation: _controller.view,
+      builder: _buildChildren,
+      child: closed ? null : Column(children: widget.children),
     );
   }
-}
-
-List<Item> data = generateItems(3);
-
-class Item {
-  Item({
-    required this.expandedValue,
-    required this.headerValue,
-    this.isExpanded = false,
-  });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-}
-
-List<Item> generateItems(int numberOfItems) {
-  return List<Item>.generate(numberOfItems, (int index) {
-    return Item(
-      headerValue: 'Panel $index',
-      expandedValue: 'This is item number $index',
-    );
-  });
 }

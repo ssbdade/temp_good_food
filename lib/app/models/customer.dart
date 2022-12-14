@@ -1,3 +1,5 @@
+import 'package:temp_good_food/app/models/services.dart';
+
 class Customer {
   String id;
   String name;
@@ -6,6 +8,7 @@ class Customer {
   String phone;
   String note;
   bool isActive;
+  List<Service> services;
 
   Customer(
       {required this.id,
@@ -14,5 +17,7 @@ class Customer {
       required this.email,
       required this.phone,
       required this.note,
-      required this.isActive});
+      required this.isActive,
+        required  this.services,
+      });
 }

@@ -42,6 +42,8 @@ abstract class Routes {
   static const GLOBAL_STATS = _Paths.GLOBAL_STATS;
   static const DRAWER = _Paths.DRAWER;
   static const CUSTOMER_MANAGER = _Paths.CUSTOMER_MANAGER;
+  static const DAILY_REPORT_MANAGER = _Paths.DAILY_REPORT_MANAGER;
+  static const SERVICE_MANAGER = _Paths.SERVICE_MANAGER;
 }
 
 /* * Routes cho app
@@ -71,4 +73,6 @@ abstract class _Paths {
   static const CUSTOMER = '/customer';
   static const DRAWER = '/drawer';
   static const CUSTOMER_MANAGER = '/customer_manager';
+  static const DAILY_REPORT_MANAGER = '/daily_report_manager';
+  static const SERVICE_MANAGER = '/service_manager';
 }

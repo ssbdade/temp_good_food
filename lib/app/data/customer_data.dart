@@ -1,4 +1,7 @@
+
 import 'package:temp_good_food/app/models/customer.dart';
+
+import '../models/services.dart';
 
 class CustomersData {
   static List<Customer> customers = [
@@ -10,6 +13,21 @@ class CustomersData {
       phone: '0987654321',
       note: '',
       isActive: true,
+      services:
+        [
+          Service(
+              name: 'Health Check',
+            description: '',
+            id: '1',
+            status: 'Hoạt động',
+              ),
+          Service(
+            name: 'Daily Check',
+            description: '',
+            id: '3',
+            status: 'Hoạt động',
+          ),
+        ],
     ),
     Customer(
       id: '2',
@@ -19,6 +37,20 @@ class CustomersData {
       phone: '',
       note: '',
       isActive: true,
+      services: [
+        Service(
+          name: 'Health Check',
+          description: '',
+          id: '1',
+          status: 'Hoạt động',
+        ),
+        Service(
+          name: 'Daily Check',
+          description: '',
+          id: '3',
+          status: 'Hoạt động',
+        ),
+      ],
     ),
     Customer(
       id: '3',
@@ -28,6 +60,7 @@ class CustomersData {
       phone: '0974169894',
       note: 'Hệ thống quan trọng nhất của khách hàng là hệ thống CRM, bao gồm 3 node, tải nhình chung khá ổn định',
       isActive: true,
+      services: [],
     ),
     Customer(
       id: '4',
@@ -37,6 +70,7 @@ class CustomersData {
       phone: '0974169894',
       note: '',
       isActive: true,
+      services: [],
     ),
     Customer(
       id: '5',
@@ -46,6 +80,7 @@ class CustomersData {
       phone: '0974169894',
       note: '',
       isActive: true,
+      services: [],
     ),
     Customer(
       id: '6',
@@ -55,6 +90,7 @@ class CustomersData {
       phone: '0974169894',
       note: '',
       isActive: true,
+      services: [],
     ),
     Customer(
       id: '7',
@@ -64,6 +100,7 @@ class CustomersData {
       phone: '0974169894',
       note: '',
       isActive: true,
+      services: [],
     )
   ];
 
