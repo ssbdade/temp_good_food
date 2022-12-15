@@ -1,11 +1,8 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_cli/common/utils/json_serialize/json_ast/json_ast.dart';
 import 'package:temp_good_food/app/models/customer.dart';
 import 'package:temp_good_food/app/models/services.dart';
-import 'package:temp_good_food/app/modules/drawer/views/panl.dart';
 import 'package:temp_good_food/app/modules/widgets/app_text_field.dart';
 
 

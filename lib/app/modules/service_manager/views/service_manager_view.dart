@@ -23,7 +23,9 @@ class ServiceManagerView extends GetView<ServiceManagerController> {
             name: controller.data[index].name,
             description: controller.data[index].description,
             status: controller.data[index].status,
-            callBack: () {  },
+            callBack: () {
+
+            },
             isExpanded: true,
 
           )),

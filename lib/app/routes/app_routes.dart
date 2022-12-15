@@ -44,6 +44,9 @@ abstract class Routes {
   static const CUSTOMER_MANAGER = _Paths.CUSTOMER_MANAGER;
   static const DAILY_REPORT_MANAGER = _Paths.DAILY_REPORT_MANAGER;
   static const SERVICE_MANAGER = _Paths.SERVICE_MANAGER;
+  static const DAILY_CREATE_REPORT = _Paths.DAILY_CREATE_REPORT;
+  static const HC_CREATE_REPORT = _Paths.HC_CREATE_REPORT;
+  static const HC_REPORT_MANAGER = _Paths.HC_REPORT_MANAGER;
 }
 
 /* * Routes cho app
@@ -75,4 +78,7 @@ abstract class _Paths {
   static const CUSTOMER_MANAGER = '/customer_manager';
   static const DAILY_REPORT_MANAGER = '/daily_report_manager';
   static const SERVICE_MANAGER = '/service_manager';
+  static const DAILY_CREATE_REPORT = '/daily_create_report';
+  static const HC_CREATE_REPORT = '/hc_create_report';
+  static const HC_REPORT_MANAGER = '/hc_report_manager';
 }

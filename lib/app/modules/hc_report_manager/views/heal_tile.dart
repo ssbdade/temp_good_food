@@ -3,27 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:temp_good_food/app/modules/drawer/views/panl.dart';
 
 
-class DailyTile extends StatefulWidget {
-  DailyTile(
+class HealTile extends StatefulWidget {
+  HealTile(
       {Key? key,
         required this.createDate,
         required this.reportTime,
         required this.customerName,
         required this.callBack,
-        required this.isExpanded})
+        required this.isExpanded, required this.databaseName})
       : super(key: key);
   final String createDate;
   final String reportTime;
   final String customerName;
+  final String databaseName;
   final VoidCallback callBack;
   bool isExpanded;
 
 
   @override
-  State<DailyTile> createState() => _DailyTileState();
+  State<HealTile> createState() => _HealTileState();
 }
 
-class _DailyTileState extends State<DailyTile> {
+class _HealTileState extends State<HealTile> {
   final GlobalKey<AppExpansionTileState> expansionTile = GlobalKey();
 
   @override
@@ -68,6 +69,27 @@ class _DailyTileState extends State<DailyTile> {
                     ),
                     TextSpan(
                       text: widget.createDate,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                    )
+                  ]),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                RichText(
+                  text: TextSpan(children: [
+                    const TextSpan(
+                      text: 'Tên Database: ',
+                      style: TextStyle(
+                        color:  Colors.black,
+                        fontSize: 14,
+                      ),
+                    ),
+                    TextSpan(
+                      text: widget.databaseName,
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -131,9 +153,6 @@ class _DailyTileState extends State<DailyTile> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        if(widget.isExpanded) {
-                          expansionTile.currentState!.collapse();
-                        }
                         widget.callBack();
                       },
                       child: const Icon(Icons.delete,

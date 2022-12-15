@@ -242,13 +242,15 @@ List<dynamic> drawerTitle = [
       'Tạo báo cáo',
       'Quản lý báo cáo',
       'Xem dữ liệu',
-      'Quản lý lock',
+      'Quản lý log',
+      'Báo cáo tăng trưởng',
     ],
     'routes': [
       '/daily_create_report',
       '/daily_report_manager',
       '/stats',
       '/log_manager',
+      '/grew_report'
     ]
   }
 ];
