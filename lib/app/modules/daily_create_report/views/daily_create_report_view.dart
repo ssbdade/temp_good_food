@@ -8,6 +8,7 @@ import 'package:temp_good_food/app/data/customer_data.dart';
 import 'package:temp_good_food/app/data/daily_report_data.dart';
 import 'package:temp_good_food/app/data/databases_list.dart';
 import 'package:temp_good_food/app/models/dailycheck_report.dart';
+import 'package:temp_good_food/app/modules/widgets/dropdownfield.dart';
 
 import '../controllers/daily_create_report_controller.dart';
 
@@ -27,46 +28,21 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               children: [
+                SizedBox(
+                  height: 20,
+                ),
                 Form(
                   key: controller.formKey,
-                  child: DropdownButtonFormField2(
-                    validator: (value) => value == null ? 'Xin hãy chọn khách hàng' : null,
-                    hint: const Text(
-                      'Tên Khách Hàng',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 20),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black, width: 1),
-                      ),
-                      focusedBorder: OutlineInputBorder( //<-- SEE HERE
-                        borderSide: BorderSide(color: Colors.black, width: 1),
-                      ),
-                      errorBorder: OutlineInputBorder( //<-- SEE HERE
-                        borderSide: BorderSide(color: Colors.red, width: 1),
-                      ),
-                    ),
-                    items: users
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                    value: controller.selectedValue!.value == ""
-                        ? null
-                        : controller.selectedValue!.value,
-                    onChanged: (value) {
-                      controller.selectedValue!.value = value as String;
-                    },
-                  ),
+                  child: DropDownField(
+                      hint: 'Tên Khách Hàng',
+                      items: users,
+                      dropdownValue: controller.selectedValue!.value == ""
+                          ? null
+                          : controller.selectedValue!.value,
+                      validate: (value) =>
+                      value == null ? 'Xin hãy chọn khách hàng' : null
+                  )
+
                 ),
                 SizedBox(
                   height: 20,
@@ -212,3 +188,5 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
 
 final List<String> users = List.generate(CustomersData.customers.length,
     (index) => CustomersData.customers[index].name);
+
+

@@ -74,8 +74,16 @@ class _UserTableState extends State<UserTable> {
                       GestureDetector(child: Icon(Icons.refresh,
                         color: Colors.blue,
                       )),
-                      GestureDetector(child: Icon(Icons.delete,
-                          color: Colors.blue
+                      GestureDetector(
+                          onTap: () {
+                            widget.data.removeAt(index);
+                            setState(() {
+
+                            });
+                          },
+                          child: Icon(Icons.delete,
+                          color: Colors.blue,
+
                       )),
                     ],
                   )

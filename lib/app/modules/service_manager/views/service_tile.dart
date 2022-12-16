@@ -151,9 +151,6 @@ class _ServiceTileState extends State<ServiceTile> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        if(widget.isExpanded) {
-                          expansionTile.currentState!.collapse();
-                        }
                         widget.callBack();
                       },
                       child: const Icon(Icons.delete,

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_good_food/app/data/customer_data.dart';
 
@@ -25,5 +26,26 @@ class ServiceManagerController extends GetxController {
   void increment() => count.value++;
 
   List<Service> data = CustomersData.customers[0].services;
+
+  TextEditingController serviceName = TextEditingController();
+  TextEditingController description = TextEditingController();
+  TextEditingController roleController = TextEditingController();
+
+
+  RxBool isActive = true.obs;
+
+  final _formKey = GlobalKey<FormState>();
+
+  get formKey => _formKey;
+
+  RxString? selectedValue = 'Hoạt động'.obs;
+
+
+  clear() {
+    serviceName.clear();
+    description.clear();
+    roleController.clear();
+  }
+
 
 }

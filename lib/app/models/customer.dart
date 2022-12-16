@@ -20,4 +20,9 @@ class Customer {
       required this.isActive,
         required  this.services,
       });
+
+  void removeService(int index) {
+    services.removeAt(index);
+  }
+
 }

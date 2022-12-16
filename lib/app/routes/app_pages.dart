@@ -12,6 +12,8 @@ import '../modules/database_page/bindings/database_page_binding.dart';
 import '../modules/database_page/views/database_page_view.dart';
 import '../modules/drawer/bindings/drawer_binding.dart';
 import '../modules/drawer/views/drawer_view.dart';
+import '../modules/grew_report/bindings/grew_report_binding.dart';
+import '../modules/grew_report/views/grew_report_view.dart';
 import '../modules/hc_create_report/bindings/hc_create_report_binding.dart';
 import '../modules/hc_create_report/views/hc_create_report_view.dart';
 import '../modules/hc_report_manager/bindings/hc_report_manager_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.HC_REPORT_MANAGER,
       page: () => const HcReportManagerView(),
       binding: HcReportManagerBinding(),
+    ),
+    GetPage(
+      name: _Paths.GREW_REPORT,
+      page: () => const GrewReportView(),
+      binding: GrewReportBinding(),
     ),
   ];
 }

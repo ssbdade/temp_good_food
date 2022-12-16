@@ -47,6 +47,7 @@ abstract class Routes {
   static const DAILY_CREATE_REPORT = _Paths.DAILY_CREATE_REPORT;
   static const HC_CREATE_REPORT = _Paths.HC_CREATE_REPORT;
   static const HC_REPORT_MANAGER = _Paths.HC_REPORT_MANAGER;
+  static const GREW_REPORT = _Paths.GREW_REPORT;
 }
 
 /* * Routes cho app
@@ -81,4 +82,5 @@ abstract class _Paths {
   static const DAILY_CREATE_REPORT = '/daily_create_report';
   static const HC_CREATE_REPORT = '/hc_create_report';
   static const HC_REPORT_MANAGER = '/hc_report_manager';
+  static const GREW_REPORT = '/grew_report';
 }
