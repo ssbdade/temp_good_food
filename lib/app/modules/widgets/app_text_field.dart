@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextField extends StatelessWidget {
-  const AppTextField({Key? key, required this.hintText, required this.textEditingController, this.textInputType}) : super(key: key);
+  const AppTextField({Key? key, required this.hintText, required this.textEditingController, this.textInputType})
+      : super(key: key);
   final String hintText;
   final TextEditingController textEditingController;
   final TextInputType? textInputType;
@@ -14,10 +15,11 @@ class AppTextField extends StatelessWidget {
       children: [
         SizedBox(
           width: 100,
-          child: Text(hintText,
+          child: Text(
+            hintText,
             maxLines: 3,
             style: TextStyle(
-                fontSize: 15,
+              fontSize: 15,
             ),
           ),
         ),
