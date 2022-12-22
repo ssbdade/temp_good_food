@@ -11,6 +11,11 @@ class DatabasePageController extends GetxController {
 
   RxBool isActive = true.obs;
 
+  final _formKey = GlobalKey<FormState>();
+
+  get formKey => _formKey;
+
+
   TextEditingController dbNameController = TextEditingController();
   TextEditingController dbIdController = TextEditingController();
   TextEditingController dbRoleController = TextEditingController();
@@ -39,20 +44,5 @@ class DatabasePageController extends GetxController {
 
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

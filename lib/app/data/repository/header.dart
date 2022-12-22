@@ -1,0 +1,19 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:temp_good_food/app/data/repository/repositorybase.dart';
+
+class AppToken extends Repository {
+  AppToken._();
+
+  static AppToken instance = AppToken._();
+
+  static String uniqueToken =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxOCIsImp0aSI6ImZmYWJlOGFiZjVlNmM3Yjk4NjUyY2IwOGNhMzRlMjZiZDJkMTUxMDk1MjYxOWFiMzc2MGUzMGJkZjQyZjIzYTJkZTM1MGYyYjA3N2ZiNmQ3IiwiaWF0IjoxNjcwNTc0MzM0LjE2MTM0MywibmJmIjoxNjcwNTc0MzM0LjE2MTM0NiwiZXhwIjoxOTI5Nzc0MzM0LjEzMjIyMiwic3ViIjoiNzQiLCJzY29wZXMiOltdfQ.K9YoFwf018HL8kCqt4MzHStNf2yiH7psOghzM9LiSHYn0c5xFRRVxSKEz-a2yPZxNbiyjVFhu7ZlhCVbOwyEOT12EAb2G3sbJD42S6yqhhx1Xe8YtMboIDb_lIsW45Uou6BKwHSCBoU1wHx6MK6cs1jz9vJeTTXqzilzblgqZgQaKv6VN3mh5YI4Y_pv4d1J2qTf4SMhrwE-gwoaoI3dwQFeBkZvQB5HlOQ28fyXtmwouSyM1DD1QmKPc9135Ts_Cu5cKv3PdB4NB7CGNnnSVYU4F-Elde-Y3Mr0tLe83KXNNQ_kPf8k4GC0AQozUqIsUrqeyvRrSZ1jWIOKhcsjQkzM--j2Y0pgzlsRWv5VjqhDLx7_OqzkGvkaIT8cDMMEE6iWM0EzUWrbqVfUXJYDJu-VXJxhZhpodFNKAoFvkMjppVtrp802x4RyML0iC2siqYpFDCDsd1uM17aumpsF7C813-O9I6OsPEHQ2OTPsIFZOibCe7gxO6IBQvPWjX7DMK5tVuYmhNufOuE0Gwd-Ex1HXLnDFOIQf8phnZOZaXEky4OnkJu7AlnLo61M53cHkoDVvBfjw5x-McTZ74vovntN-oEV_odOT3sgc5NJ9NO2WVTS_lRPBI5AnirUufp4yc6P9JoTJvy2HhhkkhmMhWtOWFbNxkeRoLvh2UMrIEg";
+
+  Map<String, dynamic> header() {
+    return {
+      "Authorization": "Bearer $uniqueToken",
+    };
+  }
+}
