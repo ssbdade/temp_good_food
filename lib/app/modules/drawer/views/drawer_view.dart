@@ -11,8 +11,7 @@ class DrawerView extends GetView<DrawerPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(
-            () => Text(controller.pages[controller.index.value].toString())),
+        title: Text('Người dùng'),
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -87,9 +86,9 @@ class _PanelState extends State<Panel> {
       decoration: BoxDecoration(
         border: Border(
             bottom: BorderSide(
-              color: Colors.black.withOpacity(0.1), width: 1,
-            )
-        ),
+          color: Colors.black.withOpacity(0.1),
+          width: 1,
+        )),
       ),
       child: ExpansionTile(
         title: Text(widget.panelTitle),
@@ -101,17 +100,15 @@ class _PanelState extends State<Panel> {
             () => Container(
               decoration: BoxDecoration(
                   border: Border(
-                left: controller.selected[0] == widget.panelIndex &&
-                        controller.selectedIndex.value == index
-                    ? BorderSide(color: Color(0xFF240066), width: 4)
-                    : BorderSide.none,
+                      left: controller.selected[0] == widget.panelIndex && controller.selectedIndex.value == index
+                          ? BorderSide(color: Color(0xFF240066), width: 4)
+                          : BorderSide.none,
                       bottom: BorderSide(
-                        color: Colors.black.withOpacity(0.1), width: 1,
-                      )
-              )),
+                        color: Colors.black.withOpacity(0.1),
+                        width: 1,
+                      ))),
               child: ListTile(
-                  selected: controller.selected[0] == widget.panelIndex &&
-                      controller.selectedIndex.value == index,
+                  selected: controller.selected[0] == widget.panelIndex && controller.selectedIndex.value == index,
                   selectedTileColor: const Color(0xFF4D7FF8).withOpacity(0.1),
                   selectedColor: HexColor('#1E3161'),
                   title: Padding(
@@ -146,57 +143,52 @@ class _ListPanelState extends State<ListPanel> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(
-        drawerTitle.length,
-        (index) {
-          if(drawerTitle[index]['list'] == 'none') {
-            return Obx(
-                  () => Container(
-                decoration: BoxDecoration(
-                    border: Border(
+      children: List.generate(drawerTitle.length, (index) {
+        if (drawerTitle[index]['list'] == 'none') {
+          return Obx(
+            () => Container(
+              decoration: BoxDecoration(
+                  border: Border(
                       left: controller.selected[0] == index
                           ? const BorderSide(color: Color(0xFF240066), width: 4)
                           : BorderSide.none,
                       bottom: BorderSide(
-                        color: Colors.black.withOpacity(0.1), width: 1,
-                      )
-                    )),
-                child: ListTile(
+                        color: Colors.black.withOpacity(0.1),
+                        width: 1,
+                      ))),
+              child: ListTile(
                   leading: Icon(Icons.person),
-                    selected: controller.selected[0] == index,
-                    selectedTileColor: const Color(0xFF4D7FF8).withOpacity(0.1),
-                    selectedColor: HexColor('#1E3161'),
-                    title: Text(
-                      drawerTitle[index]['name'],
-                    ),
-                    onTap: () {
-                      controller.update();
-                      controller.selected[0] = index;
-                      print(controller.selected);
-                      Routes.toNamed(drawerTitle[index]['routes']);
-                    }),
-              ),
-            );
-          }
-          else {
-            return Obx(
-                  () => Panel(
-                isSelected: controller.selected[0] == index &&
-                    controller.selected[1] == controller.selectedIndex.value,
-                panelIndex: index,
-                panelTitle: drawerTitle[index]['name'],
-                titleList: drawerTitle[index]['list'],
-                routes: drawerTitle[index]['routes'],
-                onTap: (value) {
-                  controller.selectedIndex.value = value;
-                  controller.selected.value = [index, value];
-                  // print(controller.selected);
-                },
-              ),
-            );
-          }
+                  selected: controller.selected[0] == index,
+                  selectedTileColor: const Color(0xFF4D7FF8).withOpacity(0.1),
+                  selectedColor: HexColor('#1E3161'),
+                  title: Text(
+                    drawerTitle[index]['name'],
+                  ),
+                  onTap: () {
+                    controller.update();
+                    controller.selected[0] = index;
+                    print(controller.selected);
+                    Routes.toNamed(drawerTitle[index]['routes']);
+                  }),
+            ),
+          );
+        } else {
+          return Obx(
+            () => Panel(
+              isSelected: controller.selected[0] == index && controller.selected[1] == controller.selectedIndex.value,
+              panelIndex: index,
+              panelTitle: drawerTitle[index]['name'],
+              titleList: drawerTitle[index]['list'],
+              routes: drawerTitle[index]['routes'],
+              onTap: (value) {
+                controller.selectedIndex.value = value;
+                controller.selected.value = [index, value];
+                // print(controller.selected);
+              },
+            ),
+          );
         }
-      ),
+      }),
     );
   }
 }
@@ -245,12 +237,6 @@ List<dynamic> drawerTitle = [
       'Quản lý log',
       'Báo cáo tăng trưởng',
     ],
-    'routes': [
-      '/daily_create_report',
-      '/daily_report_manager',
-      '/stats',
-      '/log_manager',
-      '/grew_report'
-    ]
+    'routes': ['/daily_create_report', '/daily_report_manager', '/stats', '/log_manager', '/grew_report']
   }
 ];

@@ -15,15 +15,13 @@ class CustomerPageView extends GetView<CustomerPageController> {
   Widget build(BuildContext context) {
     Get.put(CustomerPageController());
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Người dùng'),
-        centerTitle: true,
-      ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: GetBuilder<CustomerPageController>(builder: (context) {
-          return UserTable(data: controller.data);
-        },),
+        child: GetBuilder<CustomerPageController>(
+          builder: (context) {
+            return UserTable(data: controller.data);
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -57,8 +55,9 @@ class CustomerPageView extends GetView<CustomerPageController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Expanded(
-                                flex: 2,
-                                  child: Text('Role:',
+                                  flex: 2,
+                                  child: Text(
+                                    'Role:',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
@@ -76,16 +75,15 @@ class CustomerPageView extends GetView<CustomerPageController> {
                                         ),
                                       ),
                                       items: items
-                                          .map((item) =>
-                                          DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ))
+                                          .map((item) => DropdownMenuItem<String>(
+                                                value: item,
+                                                child: Text(
+                                                  item,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ))
                                           .toList(),
                                       value: controller.selectedValue!.value,
                                       onChanged: (value) {
@@ -133,14 +131,14 @@ class CustomerPageView extends GetView<CustomerPageController> {
                             username: controller.usernameController.text,
                             fullName: controller.fullNameController.text,
                             role: controller.selectedValue!.value,
-                            isActive: controller.isActive.value, ));
+                            isActive: controller.isActive.value,
+                          ));
                           Get.back();
                           controller.clear();
                           controller.update();
                         }
                         print('add');
                         print(controller.isActive.value);
-
                       },
                       child: const Text(
                         'YES',
