@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:temp_good_food/app/modules/drawer/controllers/drawer_page_controller.dart';
 import 'package:temp_good_food/app/routes/app_pages.dart';
+import 'package:temp_good_food/app/utils/app_style.dart';
 import 'package:temp_good_food/app/utils/theme/app_colors.dart';
 
 class DrawerView extends GetView<DrawerPageController> {
@@ -11,17 +14,45 @@ class DrawerView extends GetView<DrawerPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Người dùng'),
+        title: Text(
+          'KHÁCH HÀNG',
+          style: titleStyle.copyWith(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+        ),
+        leading: Builder(builder: (context) {
+          return GestureDetector(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+          );
+        }),
+        backgroundColor: baseColor,
         centerTitle: true,
       ),
       drawer: Drawer(
         child: ListView(
           children: [
-            ListPanel(),
+            const ListPanel(),
           ],
         ),
       ),
-      body: Obx(() => controller.pages[controller.index.value]),
+      body: SafeArea(
+        child: Obx(
+          () => controller.pages[controller.index.value],
+        ),
+      ),
     );
   }
 }
@@ -92,7 +123,10 @@ class _PanelState extends State<Panel> {
       ),
       child: ExpansionTile(
         title: Text(widget.panelTitle),
-        leading: Icon(Icons.person), //add icon
+        leading: const Icon(
+          Icons.person,
+          color: Colors.red,
+        ), //add icon
         // childrenPadding: EdgeInsets.only(left:60), //children padding
         children: List.generate(
           widget.titleList.length,
@@ -101,7 +135,7 @@ class _PanelState extends State<Panel> {
               decoration: BoxDecoration(
                   border: Border(
                       left: controller.selected[0] == widget.panelIndex && controller.selectedIndex.value == index
-                          ? BorderSide(color: Color(0xFF240066), width: 4)
+                          ? const BorderSide(color: Color(0xFF240066), width: 4)
                           : BorderSide.none,
                       bottom: BorderSide(
                         color: Colors.black.withOpacity(0.1),
@@ -112,7 +146,7 @@ class _PanelState extends State<Panel> {
                   selectedTileColor: const Color(0xFF4D7FF8).withOpacity(0.1),
                   selectedColor: HexColor('#1E3161'),
                   title: Padding(
-                    padding: EdgeInsets.only(left: 60),
+                    padding: const EdgeInsets.only(left: 60),
                     child: Text(
                       widget.titleList[index],
                     ),
@@ -121,7 +155,7 @@ class _PanelState extends State<Panel> {
                     widget.onTap(index);
                     controller.update();
                     print(controller.selected);
-                    Routes.toNamed(widget.routes[index]);
+                    Get.toNamed(widget.routes[index]);
                   }),
             ),
           ),
@@ -157,7 +191,10 @@ class _ListPanelState extends State<ListPanel> {
                         width: 1,
                       ))),
               child: ListTile(
-                  leading: Icon(Icons.person),
+                  leading: const Icon(
+                    Icons.person,
+                    color: Colors.red,
+                  ),
                   selected: controller.selected[0] == index,
                   selectedTileColor: const Color(0xFF4D7FF8).withOpacity(0.1),
                   selectedColor: HexColor('#1E3161'),
@@ -165,10 +202,14 @@ class _ListPanelState extends State<ListPanel> {
                     drawerTitle[index]['name'],
                   ),
                   onTap: () {
-                    controller.update();
-                    controller.selected[0] = index;
-                    print(controller.selected);
-                    Routes.toNamed(drawerTitle[index]['routes']);
+                    // controller.update();
+                    // controller.selected[0] = index;
+                    // print(controller.selected);
+                    // print('object');
+                    log(index.toString());
+                    log('---');
+                    log('${drawerTitle[index]['routes']}');
+                    Get.toNamed(drawerTitle[index]['routes']);
                   }),
             ),
           );
@@ -182,8 +223,9 @@ class _ListPanelState extends State<ListPanel> {
               routes: drawerTitle[index]['routes'],
               onTap: (value) {
                 controller.selectedIndex.value = value;
-                controller.selected.value = [index, value];
-                // print(controller.selected);
+                // controller.selected.value = [index, value];
+                log(drawerTitle[index]['routes'][value].toString());
+                Get.toNamed(drawerTitle[index]['routes'][value]); // print(controller.selected);
               },
             ),
           );
@@ -210,12 +252,12 @@ List<dynamic> drawerTitle = [
   {
     'name': 'Biểu đồ',
     'list': 'none',
-    'routes': '/stats',
+    'routes': Routes.STATS,
   },
   {
     'name': 'Người dùng',
     'list': 'none',
-    'routes': '/customer',
+    'routes': Routes.CUSTOMER,
   },
   {
     'name': 'Health check',

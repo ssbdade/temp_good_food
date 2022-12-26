@@ -18,6 +18,10 @@ import '../modules/hc_create_report/bindings/hc_create_report_binding.dart';
 import '../modules/hc_create_report/views/hc_create_report_view.dart';
 import '../modules/hc_report_manager/bindings/hc_report_manager_binding.dart';
 import '../modules/hc_report_manager/views/hc_report_manager_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/service_manager/bindings/service_manager_binding.dart';
 import '../modules/service_manager/views/service_manager_view.dart';
 import '../modules/stats/bindings/stats_binding.dart';
@@ -28,11 +32,10 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DRAWER;
-
+  static const INITIAL = Routes.LOGIN;
   static final List<GetPage> routes = [
     GetPage(
-      name: INITIAL,
+      name: Routes.DRAWER,
       page: () => const DrawerView(),
       binding: DrawerBinding(),
     ),
@@ -85,6 +88,16 @@ class AppPages {
       name: _Paths.GREW_REPORT,
       page: () => const GrewReportView(),
       binding: GrewReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
     ),
   ];
 }

@@ -3,7 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextField extends StatelessWidget {
-  const AppTextField({Key? key, required this.hintText, required this.textEditingController, this.textInputType, required this.compulsory}) : super(key: key);
+  const AppTextField(
+      {Key? key,
+      required this.hintText,
+      required this.textEditingController,
+      this.textInputType,
+      required this.compulsory})
+      : super(key: key);
   final String hintText;
   final TextEditingController textEditingController;
   final TextInputType? textInputType;
@@ -16,24 +22,23 @@ class AppTextField extends StatelessWidget {
         Expanded(
           flex: 2,
           child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: hintText,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                  ),
+            text: TextSpan(children: [
+              TextSpan(
+                text: hintText,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
                 ),
-                if(compulsory) TextSpan(
+              ),
+              if (compulsory)
+                TextSpan(
                   text: '*',
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 16,
                   ),
                 )
-              ]
-            ),
+            ]),
           ),
         ),
         Expanded(
@@ -41,7 +46,7 @@ class AppTextField extends StatelessWidget {
           child: TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {
-              if(compulsory == true && (value == null || value.isEmpty)) {
+              if (compulsory == true && (value == null || value.isEmpty)) {
                 return 'Please enter some text';
               }
               return null;

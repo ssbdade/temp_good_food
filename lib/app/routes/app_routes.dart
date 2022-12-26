@@ -9,7 +9,6 @@ abstract class Routes {
   static const DATABASE = _Paths.DATABASE;
 
   static const AUTH = _Paths.AUTH;
-  static const LOGIN = _Paths.LOGIN;
   static const CUSTOMER = _Paths.CUSTOMER;
   static const STATS = _Paths.STATS;
   static const SIGNUP = _Paths.SIGNUP;
@@ -20,19 +19,6 @@ abstract class Routes {
 
   static const NOTIFICATION_PAGE = _Paths.NOTIFICATION_PAGE;
   static const MORE_PAGE = _Paths.MORE_PAGE;
-  static dynamic routesArgument;
-
-  static Future toNamed(String pageName, {arguments}) {
-    print(routesArgument);
-    routesArgument = arguments;
-    print('routesArgument = $routesArgument');
-    return Get.rootDelegate.toNamed(pageName);
-  }
-
-  static off(String pageName, {arguments}) {
-    routesArgument = arguments;
-    Get.rootDelegate.offNamed(pageName);
-  }
 
   static const TEST = _Paths.TEST;
   static const SPLASH = _Paths.SPLASH;
@@ -48,6 +34,8 @@ abstract class Routes {
   static const HC_CREATE_REPORT = _Paths.HC_CREATE_REPORT;
   static const HC_REPORT_MANAGER = _Paths.HC_REPORT_MANAGER;
   static const GREW_REPORT = _Paths.GREW_REPORT;
+  static const LOGIN = _Paths.LOGIN;
+  static const REGISTER = _Paths.REGISTER;
 }
 
 /* * Routes cho app
@@ -59,7 +47,6 @@ abstract class Routes {
 abstract class _Paths {
   static const HOME = '/home';
   static const PROFILE = '/profile';
-  static const LOGIN = '/login';
   static const SIGNUP = '/signup';
   static const SETTINGS = '/settings';
   static const DASHBOARD = '/dashboard';
@@ -83,4 +70,6 @@ abstract class _Paths {
   static const HC_CREATE_REPORT = '/hc_create_report';
   static const HC_REPORT_MANAGER = '/hc_report_manager';
   static const GREW_REPORT = '/grew_report';
+  static const LOGIN = '/login';
+  static const REGISTER = '/register';
 }

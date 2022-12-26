@@ -12,8 +12,7 @@ class AppExpansionTile extends StatefulWidget {
     this.children = const <Widget>[],
     this.trailing,
     this.initiallyExpanded = false,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   final Widget? leading;
   final Widget title;
@@ -84,9 +83,9 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
           _controller.forward();
         } else {
           _controller.reverse();
-            setState(() {
-              // Rebuild without widget.children.
-            });
+          setState(() {
+            // Rebuild without widget.children.
+          });
         }
         PageStorage.of(context)?.writeState(context, _isExpanded);
       });
@@ -106,8 +105,7 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
           border: Border(
             top: BorderSide(color: borderSideColor),
             bottom: BorderSide(color: borderSideColor),
-          )
-      ),
+          )),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -117,17 +115,14 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
               onTap: toggle,
               leading: widget.leading,
               title: DefaultTextStyle(
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .button!
-                    .copyWith(color: titleColor),
+                style: Theme.of(context).textTheme.button!.copyWith(color: titleColor),
                 child: widget.title,
               ),
-              trailing: widget.trailing ?? RotationTransition(
-                turns: _iconTurns,
-                child: const Icon(Icons.expand_more),
-              ),
+              trailing: widget.trailing ??
+                  RotationTransition(
+                    turns: _iconTurns,
+                    child: const Icon(Icons.expand_more),
+                  ),
             ),
           ),
           ClipRect(

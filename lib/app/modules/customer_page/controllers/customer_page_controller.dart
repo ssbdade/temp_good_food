@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:temp_good_food/app/data/repository/customer_repo/customer_repo.dart';
 import 'package:temp_good_food/app/data/users_data.dart';
 import 'package:temp_good_food/app/models/user_model.dart';
 
@@ -10,7 +11,6 @@ class CustomerPageController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController roleController = TextEditingController();
 
-
   RxBool isActive = true.obs;
 
   final _formKey = GlobalKey<FormState>();
@@ -19,7 +19,6 @@ class CustomerPageController extends GetxController {
 
   RxString? selectedValue = 'USER'.obs;
 
-
   List<User> data = UsersData.listUser;
 
   clear() {
@@ -27,6 +26,4 @@ class CustomerPageController extends GetxController {
     fullNameController.clear();
     roleController.clear();
   }
-
-
 }
