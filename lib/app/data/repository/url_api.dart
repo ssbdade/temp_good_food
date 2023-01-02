@@ -1,8 +1,8 @@
 class ProdEnvironment {
   // ip tại nhà
-  // final baseUrl = "http://192.168.1.5:8080";
+  final baseUrl = "http://192.168.1.186:8080";
   // ip tại công ty
-  final baseUrl = "http://192.168.22.97:8080";
+  // final baseUrl = "http://192.168.22.97:8080";
   final receiveTimeout = 2 * 60 * 1000;
   final connectTimeout = 2 * 60 * 1000;
 
