@@ -54,12 +54,9 @@ class CustomerManagerView extends GetView<CustomerManagerController> {
                     child: Obx(
                       () => Column(
                         children: List.generate(
-                          controller.data.length,
+                          controller.data.value.length,
                           (index) => ExpandTile(
-                              callBack: () {
-                                print('object');
-                                controller.data.removeAt(index);
-                              },
+                              callBack: () {},
                               isExpanded: controller.isExpanded.value,
                               id: controller.data[index].customerId.toString(),
                               name: controller.data[index].fullname ?? '',
@@ -97,7 +94,7 @@ class CustomerManagerView extends GetView<CustomerManagerController> {
                 context: context,
                 builder: (_) {
                   return AlertDialog(
-                    title: const Text('Add Database'),
+                    title: const Text('Thêm khách hàng'),
                     content: SingleChildScrollView(
                       child: Form(
                         key: controller.formKey,
@@ -115,6 +112,14 @@ class CustomerManagerView extends GetView<CustomerManagerController> {
                               compulsory: false,
                               hintText: 'Tên ngắn gọn:',
                               textEditingController: controller.sortNameController,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            AppTextField(
+                              compulsory: false,
+                              hintText: 'Địa chỉ:',
+                              textEditingController: controller.addressCtrl,
                             ),
                             SizedBox(
                               height: 10,

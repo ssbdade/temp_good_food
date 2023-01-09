@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:temp_good_food/app/modules/drawer/controllers/drawer_page_controller.dart';
 import 'package:temp_good_food/app/routes/app_pages.dart';
+import 'package:temp_good_food/app/utils/app_gap.dart';
 import 'package:temp_good_food/app/utils/app_style.dart';
 import 'package:temp_good_food/app/utils/theme/app_colors.dart';
 
@@ -15,7 +17,7 @@ class DrawerView extends GetView<DrawerPageController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'KHÁCH HÀNG',
+          'TRANG CHỦ',
           style: titleStyle.copyWith(
             fontSize: 16,
             color: Colors.white,
@@ -49,8 +51,22 @@ class DrawerView extends GetView<DrawerPageController> {
         ),
       ),
       body: SafeArea(
-        child: Obx(
-          () => controller.pages[controller.index.value],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Ứng dụng quản trị hệ cơ sở dữ liệu',
+                style: titleStyle,
+              ),
+              AppGap.h32,
+              Text(
+                'Được thiết kế bởi nhóm 10',
+                style: baseStyle.copyWith(color: Colors.blue),
+              ),
+              AppGap.h16,
+            ],
+          ),
         ),
       ),
     );
@@ -66,6 +82,7 @@ class Panel extends StatefulWidget {
     required this.isSelected,
     required this.onTap,
     required this.routes,
+    required this.icon,
     // required this.callback
   }) : super(key: key);
   final int panelIndex;
@@ -74,6 +91,7 @@ class Panel extends StatefulWidget {
   final List<String> titleList;
   final List<String> routes;
   final Function(int value) onTap;
+  final IconData icon;
   // final VoidCallback callback;
 
   @override
@@ -123,9 +141,10 @@ class _PanelState extends State<Panel> {
       ),
       child: ExpansionTile(
         title: Text(widget.panelTitle),
-        leading: const Icon(
-          Icons.person,
-          color: Colors.red,
+        leading: Icon(
+          widget.icon,
+          size: 18,
+          color: Colors.black,
         ), //add icon
         // childrenPadding: EdgeInsets.only(left:60), //children padding
         children: List.generate(
@@ -191,9 +210,10 @@ class _ListPanelState extends State<ListPanel> {
                         width: 1,
                       ))),
               child: ListTile(
-                  leading: const Icon(
-                    Icons.person,
-                    color: Colors.red,
+                  leading: Icon(
+                    drawerTitle[index]['icon'],
+                    size: 18,
+                    color: Colors.black,
                   ),
                   selected: controller.selected[0] == index,
                   selectedTileColor: const Color(0xFF4D7FF8).withOpacity(0.1),
@@ -216,6 +236,7 @@ class _ListPanelState extends State<ListPanel> {
         } else {
           return Obx(
             () => Panel(
+              icon: drawerTitle[index]['icon'],
               isSelected: controller.selected[0] == index && controller.selected[1] == controller.selectedIndex.value,
               panelIndex: index,
               panelTitle: drawerTitle[index]['name'],
@@ -247,17 +268,20 @@ List<dynamic> drawerTitle = [
       '/customer_manager',
       '/database_manager',
       '/service_manager',
-    ]
+    ],
+    'icon': Remix.group_line,
   },
   {
     'name': 'Biểu đồ',
     'list': 'none',
     'routes': Routes.STATS,
+    'icon': Remix.bar_chart_2_line,
   },
   {
     'name': 'Người dùng',
     'list': 'none',
     'routes': Routes.CUSTOMER,
+    'icon': Remix.user_2_line,
   },
   {
     'name': 'Health check',
@@ -268,7 +292,8 @@ List<dynamic> drawerTitle = [
     'routes': [
       '/hc_create_report',
       '/hc_report_manager',
-    ]
+    ],
+    'icon': Remix.heart_3_line,
   },
   {
     'name': 'Daily check',
@@ -279,6 +304,7 @@ List<dynamic> drawerTitle = [
       'Quản lý log',
       'Báo cáo tăng trưởng',
     ],
-    'routes': ['/daily_create_report', '/daily_report_manager', '/stats', '/log_manager', '/grew_report']
+    'routes': ['/daily_create_report', '/daily_report_manager', '/stats', '/log_manager', '/grew_report'],
+    'icon': Remix.database_line,
   }
 ];

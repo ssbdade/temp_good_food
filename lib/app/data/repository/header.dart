@@ -10,7 +10,7 @@ class AppToken extends Repository {
 
   static String uniqueToken = "";
 
-  Map<String, dynamic> header() {
+  Map<String, String> header() {
     return {
       "Authorization": uniqueToken,
     };

@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:temp_good_food/app/models/user_model.dart';
 import 'package:temp_good_food/app/modules/customer_page/views/user_table.dart';
 import 'package:temp_good_food/app/modules/widgets/app_text_field.dart';
 
+import '../../../utils/app_gap.dart';
+import '../../../utils/app_style.dart';
 import '../controllers/customer_page_controller.dart';
 
 class CustomerPageView extends GetView<CustomerPageController> {
@@ -15,12 +18,161 @@ class CustomerPageView extends GetView<CustomerPageController> {
   Widget build(BuildContext context) {
     Get.put(CustomerPageController());
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: GetBuilder<CustomerPageController>(
-          builder: (context) {
-            return UserTable(data: controller.data);
+      appBar: AppBar(
+        title: Text(
+          'QUẢN LÝ NGƯỜI DÙNG',
+          style: titleStyle.copyWith(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
           },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: baseColor,
+        centerTitle: true,
+      ),
+      body: Container(
+        child: Obx(
+          () => controller.listUserResponse.value.content != null &&
+                  controller.listUserResponse.value.content!.isNotEmpty
+              ? Column(
+                  children: [
+                    AppGap.h16,
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.listUserResponse.value.content?.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 4,
+                          ),
+                          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black38,
+                              ),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 10,
+                                decoration: BoxDecoration(
+                                    border: Border(top: BorderSide(color: Colors.black.withOpacity(0.1), width: 1))),
+                              ),
+                              RichText(
+                                text: TextSpan(children: [
+                                  const TextSpan(
+                                    text: 'Tên người dùng: ',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: controller.listUserResponse.value.content?[index].fullName,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  )
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              RichText(
+                                text: TextSpan(children: [
+                                  const TextSpan(
+                                    text: 'Role: ',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: controller.listUserResponse.value.content?[index].role,
+                                    style: TextStyle(
+                                      color: baseColor,
+                                      fontSize: 14,
+                                    ),
+                                  )
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Trạng thái: ',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Transform.scale(
+                                    scale: 0.8,
+                                    child: CupertinoSwitch(
+                                        value: controller.listUserResponse.value.content?[index].active ?? false,
+                                        onChanged: (onChanged) {
+                                          controller.listUserResponse.value.content?[index].active = onChanged;
+                                          controller.listUserResponse.refresh();
+                                        }),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Thao tác: ',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // widget.callBack();
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                )
+              : Container(),
         ),
       ),
       floatingActionButton: FloatingActionButton(

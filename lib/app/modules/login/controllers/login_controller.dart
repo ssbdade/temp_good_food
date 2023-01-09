@@ -35,14 +35,14 @@ class LoginController extends GetxController {
 
   Future<void> login() async {
     final response = await LoginRepository.instance.loginRequest(
-      // data: {
-      //   "password": passwordCtrl.text,
-      //   "username": userNameCtrl.text,
-      // },
       data: {
-        "password": "12345678",
-        "username": "admin",
+        "password": passwordCtrl.text,
+        "username": userNameCtrl.text,
       },
+      // data: {
+      //   "password": "12345678",
+      //   "username": "admin",
+      // },
     );
     if (response.data == null) {
       Get.dialog(

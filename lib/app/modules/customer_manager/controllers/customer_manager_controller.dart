@@ -11,7 +11,8 @@ import '../../../data/repository/customer_repo/customer_repo.dart';
 
 class CustomerManagerController extends GetxController {
   //TODO: Implement CustomerManagerController
-  List<CustomerModel> data = <CustomerModel>[].obs;
+  final data = List<CustomerModel>.empty(growable: true).obs;
+  // List<CustomerModel> data = <CustomerModel>[].obs;
 
   @override
   void onReady() async {
@@ -21,10 +22,11 @@ class CustomerManagerController extends GetxController {
     isLoading.value = false;
   }
 
-  TextEditingController sortNameController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController sortNameController = TextEditingController();
+  TextEditingController addressCtrl = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController noteController = TextEditingController();
 
   RxBool isLoading = true.obs;
@@ -59,7 +61,7 @@ class CustomerManagerController extends GetxController {
     if (response.data == null) {
     } else {
       // data = List<CustomerModel>.from(response.data!["content"].map((x) => CustomerModel.fromJson(x)));
-      data = customerModelFromJson(response.data!);
+      data.value = customerModelFromJson(response.data!);
     }
   }
 
@@ -67,14 +69,14 @@ class CustomerManagerController extends GetxController {
     final response = await AddCustomerRepo.instance.addCustomerRequest(
       data: {
         "customerId": 1,
-        "customerName": "DDee",
-        "address": "Hưng Yên",
-        "telephone": "0912345678",
-        "email": "Lehoan04072001@gmail.com",
-        "representative": "DDee",
-        "description": "Test tạo user",
-        "fullname": "Lê Việt Hoàn",
-        "active": true
+        "customerName": sortNameController.text,
+        "address": addressCtrl.text,
+        "telephone": phoneController.text,
+        "email": emailController.text,
+        "representative": "Nam",
+        "description": noteController.text,
+        "fullname": fullNameController.text,
+        "active": isActive.value
       },
     );
     if (response.data == null) {
@@ -82,5 +84,11 @@ class CustomerManagerController extends GetxController {
       // data = List<CustomerModel>.from(response.data!["content"].map((x) => CustomerModel.fromJson(x)));
 
     }
+  }
+
+  Future<void> removeCustomer(int index) async {
+    print('object');
+    data.removeAt(index);
+    data.refresh();
   }
 }

@@ -26,6 +26,8 @@ import '../modules/service_manager/bindings/service_manager_binding.dart';
 import '../modules/service_manager/views/service_manager_view.dart';
 import '../modules/stats/bindings/stats_binding.dart';
 import '../modules/stats/views/stats_view.dart';
+import '../modules/web_view_daily/bindings/web_view_daily_binding.dart';
+import '../modules/web_view_daily/views/web_view_daily_view.dart';
 
 part 'app_routes.dart';
 
@@ -98,6 +100,11 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEB_VIEW_DAILY,
+      page: () => const WebViewDailyView(),
+      binding: WebViewDailyBinding(),
     ),
   ];
 }

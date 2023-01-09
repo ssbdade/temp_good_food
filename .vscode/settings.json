@@ -1,3 +1,4 @@
 {
-    "dart.flutterSdkPath": "/Users/viethoan471/fvm/versions/3.3.3"
+    "dart.flutterSdkPath": "/Users/viethoan471/fvm/versions/3.3.3",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

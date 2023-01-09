@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:temp_good_food/app/data/repository/user_repository/user_repository.dart';
 import 'package:temp_good_food/app/modules/customer_page/views/customer_page_view.dart';
 import 'package:temp_good_food/app/modules/database_page/views/database_page_view.dart';
 import 'package:temp_good_food/app/modules/drawer/views/drawer_view.dart';
@@ -7,11 +8,22 @@ import 'package:temp_good_food/app/routes/app_pages.dart';
 
 class DrawerPageController extends GetxController {
   //TODO: Implement DrawerController
-
   RxInt index = 0.obs;
   onTapDrawerItem(int pageIndex) {
     index.value = pageIndex;
     // Get.back();
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
+
+  @override
+  void onReady() async {
+    // TODO: implement onReady
+    super.onReady();
   }
 
   RxInt tileIndex = 0.obs;

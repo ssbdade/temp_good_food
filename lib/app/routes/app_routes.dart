@@ -36,6 +36,7 @@ abstract class Routes {
   static const GREW_REPORT = _Paths.GREW_REPORT;
   static const LOGIN = _Paths.LOGIN;
   static const REGISTER = _Paths.REGISTER;
+  static const WEB_VIEW_DAILY = _Paths.WEB_VIEW_DAILY;
 }
 
 /* * Routes cho app
@@ -72,4 +73,5 @@ abstract class _Paths {
   static const GREW_REPORT = '/grew_report';
   static const LOGIN = '/login';
   static const REGISTER = '/register';
+  static const WEB_VIEW_DAILY = '/web-view-daily';
 }

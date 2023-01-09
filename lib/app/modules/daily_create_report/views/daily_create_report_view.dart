@@ -9,6 +9,8 @@ import 'package:temp_good_food/app/data/daily_report_data.dart';
 import 'package:temp_good_food/app/data/databases_list.dart';
 import 'package:temp_good_food/app/models/dailycheck_report.dart';
 import 'package:temp_good_food/app/modules/widgets/dropdownfield.dart';
+import 'package:temp_good_food/app/routes/app_pages.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../controllers/daily_create_report_controller.dart';
 
@@ -32,26 +34,17 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                   height: 20,
                 ),
                 Form(
-                  key: controller.formKey,
-                  child: DropDownField(
-                      hint: 'Tên Khách Hàng',
-                      items: users,
-                      dropdownValue: controller.selectedValue!.value == ""
-                          ? null
-                          : controller.selectedValue!.value,
-                      validate: (value) =>
-                      value == null ? 'Xin hãy chọn khách hàng' : null
-                  )
-
-                ),
+                    key: controller.formKey,
+                    child: DropDownField(
+                        hint: 'Tên Khách Hàng',
+                        items: users,
+                        dropdownValue: controller.selectedValue!.value == "" ? null : controller.selectedValue!.value,
+                        validate: (value) => value == null ? 'Xin hãy chọn khách hàng' : null)),
                 SizedBox(
                   height: 20,
                 ),
                 Text('Danh sách Databases'.toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: Colors.black)),
+                    style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.black)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -67,10 +60,7 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                     ),
                     Text(
                       'SELECT ALL',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: Colors.black),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black),
                     ),
                   ],
                 ),
@@ -96,10 +86,7 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                       ),
                       Text(
                         controller.dataBases[i]['name'],
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(color: Colors.black),
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
@@ -112,9 +99,7 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                               firstDate: DateTime(2001),
                               lastDate: DateTime(2099))
                           .then((value) => controller.startDate.value =
-                              DateFormat('dd/MM/yyyy,')
-                                  .add_jms()
-                                  .format(value!.add(Duration(hours: 7))));
+                              DateFormat('dd/MM/yyyy,').add_jms().format(value!.add(Duration(hours: 7))));
                     },
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
@@ -125,10 +110,7 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                     ),
                     trailing: Icon(Icons.date_range_sharp),
                     title: Text(controller.startDate.value,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(color: Colors.black)),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.black)),
                   ),
                 ),
                 SizedBox(
@@ -136,22 +118,20 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if(controller.formKey.currentState!.validate()) {
-                      DailyReports.dailyReports.add(
-                        DailyReport(
-                          name: controller.selectedValue!.value,
-                          createTime: DateFormat('dd/MM/yyyy,')
-                              .add_jms()
-                              .format(DateTime.now()),
-                          reportTime: controller.startDate.value,
-                        )
-                      );
-                      showDialog(
-                          context: context, builder: (_) {
-                            return AlertDialog(
-                              title: Text('Tạo báo cáo thành công'),
-                            );
-                      });
+                    if (controller.formKey.currentState!.validate()) {
+                      DailyReports.dailyReports.add(DailyReport(
+                        name: controller.selectedValue!.value,
+                        createTime: DateFormat('dd/MM/yyyy,').add_jms().format(DateTime.now()),
+                        reportTime: controller.startDate.value,
+                      ));
+                      // showDialog(
+                      //     context: context,
+                      //     builder: (_) {
+                      //       return AlertDialog(
+                      //         title: Text('Tạo báo cáo thành công'),
+                      //       );
+                      //     });
+                      Get.toNamed(Routes.WEB_VIEW_DAILY);
                     }
                   },
                   child: Container(
@@ -164,15 +144,12 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                    child: Center(
-                      child: Text('Tạo báo cáo',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(color: Colors.black
-                      ),
-                  ),
-                    )),
+                      child: Center(
+                        child: Text(
+                          'Tạo báo cáo',
+                          style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.black),
+                        ),
+                      )),
                 ),
                 SizedBox(
                   height: 20,
@@ -186,7 +163,5 @@ class DailyCreateReportView extends GetView<DailyCreateReportController> {
   }
 }
 
-final List<String> users = List.generate(CustomersData.customers.length,
-    (index) => CustomersData.customers[index].name);
-
-
+final List<String> users =
+    List.generate(CustomersData.customers.length, (index) => CustomersData.customers[index].name);
