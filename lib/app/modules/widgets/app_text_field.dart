@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:temp_good_food/app/utils/app_style.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField(
@@ -25,10 +26,7 @@ class AppTextField extends StatelessWidget {
             text: TextSpan(children: [
               TextSpan(
                 text: hintText,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: baseStyle.copyWith(fontSize: 16),
               ),
               if (compulsory)
                 TextSpan(
@@ -60,6 +58,8 @@ class AppTextField extends StatelessWidget {
               errorStyle: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
+              hintText: 'Nhập ${hintText}',
+              hintStyle: baseStyle,
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(

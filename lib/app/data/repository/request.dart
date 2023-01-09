@@ -14,12 +14,12 @@ abstract class Constants {
 
 Logger logger = Logger();
 
-enum MethodType { GET, POST, PATCH, DELETE }
+enum MethodType { GET, POST, PUT, DELETE }
 
 Map<MethodType, String> methods = {
   MethodType.GET: "GET",
   MethodType.POST: "POST",
-  MethodType.PATCH: "PATCH",
+  MethodType.PUT: "PUT",
   MethodType.DELETE: "DELETE",
 };
 
@@ -45,6 +45,7 @@ class Request {
     bool responseHeader = false,
   }) async {
     // Logger.info("URL: " + url + "\n" + "body: " + data.toString());
+    log('URL: $url');
     log('Data');
     logger.d(data);
     log('Param');

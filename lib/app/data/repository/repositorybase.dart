@@ -24,12 +24,23 @@ abstract class Repository {
     );
   }
 
-  Future<Object> putMethod({required String url, data, params}) async {
+  Future<Object> putMethod({bool responseHeader = false, required String url, data, params}) async {
     return await request.requestApi(
-      method: MethodType.PATCH,
+      method: MethodType.PUT,
       url: url,
       data: data,
       params: params,
+      responseHeader: responseHeader,
+    );
+  }
+
+  Future<Object> deleteMethod({bool responseHeader = false, required String url, data, params}) async {
+    return await request.requestApi(
+      method: MethodType.DELETE,
+      url: url,
+      data: data,
+      params: params,
+      responseHeader: responseHeader,
     );
   }
 

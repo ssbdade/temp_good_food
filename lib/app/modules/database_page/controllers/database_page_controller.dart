@@ -34,7 +34,7 @@ class DatabasePageController extends GetxController {
   final text = ''.obs;
   @override
   void onInit() async {
-    await getListDatabase(page: page, size: 10);
+    // await getListDatabase(page: page, size: 10);
     super.onInit();
   }
 
@@ -45,6 +45,7 @@ class DatabasePageController extends GetxController {
 
   TextEditingController dbNameController = TextEditingController();
   TextEditingController dbIdController = TextEditingController();
+  TextEditingController dbTypeController = TextEditingController();
   TextEditingController dbRoleController = TextEditingController();
   TextEditingController dbVersionController = TextEditingController();
   TextEditingController customerController = TextEditingController();
@@ -53,7 +54,8 @@ class DatabasePageController extends GetxController {
   TextEditingController mountPointController = TextEditingController();
   TextEditingController tableSpaceController = TextEditingController();
   TextEditingController noteController = TextEditingController();
-
+  final isClustered = false.obs;
+  final hasStandby = false.obs;
   // List<DataBase> data = DataBasesData.dataBasesData;
 
   clear() {
@@ -69,7 +71,7 @@ class DatabasePageController extends GetxController {
     noteController.clear();
   }
 
-  Future<void> getListDatabase({int? customerId, required int page, required int size}) async {
+  Future<void> getListDatabase({required int customerId, required int page, required int size}) async {
     final response = await DatabaseRepository.instance.getListDatabase(
       customerId: customerId,
       page: page,
@@ -98,6 +100,7 @@ class DatabasePageController extends GetxController {
         );
       },
     );
+    inspect(listData.value);
   }
 
   Future<void> searchCustomer(String name) async {
@@ -120,6 +123,77 @@ class DatabasePageController extends GetxController {
       // data = List<CustomerModel>.from(response.data!["content"].map((x) => CustomerModel.fromJson(x)));
       logger.d(response.data);
       listCustomerSuggest.value = customerModelFromJson(response.data!);
+    }
+  }
+
+  Future<void> updateStatusDatabase(DataBase dataBase) async {
+    final response = await DatabaseRepository.instance.updateStatusDB(
+      int.parse(dataBase.id),
+      dataBase.isActive,
+    );
+    if (response.errorModel == null) {
+      Get.defaultDialog(
+        titlePadding: EdgeInsets.symmetric(vertical: 8),
+        title: "Thông báo",
+        middleText: "Cập nhật trạng thái thành công",
+        backgroundColor: Colors.white,
+        titleStyle: TextStyle(color: Colors.black),
+        middleTextStyle: TextStyle(color: Colors.black),
+      );
+    }
+  }
+
+  Future<void> deleteDatabase(DataBase dataBase, int index) async {
+    final response = await DatabaseRepository.instance.deleteDatabase(
+      int.parse(dataBase.id),
+    );
+    if (response.errorModel == null) {
+      listData.removeAt(index);
+      listData.refresh();
+      Get.back();
+      Get.defaultDialog(
+        titlePadding: EdgeInsets.symmetric(vertical: 8),
+        title: "Thông báo",
+        middleText: "Xóa database thành công",
+        backgroundColor: Colors.white,
+        titleStyle: TextStyle(color: Colors.black),
+        middleTextStyle: TextStyle(color: Colors.red),
+      );
+    }
+  }
+
+  Future<void> addNewDatabase() async {
+    Map<String, dynamic> data = {
+      "customerId": customerModel.value.customerId,
+      "dbId": int.parse(dbIdController.text.trim()),
+      "dbName": dbNameController.text,
+      "dbRole": dbRoleController.text,
+      "dbType": dbTypeController.text,
+      "dbVersion": dbVersionController.text,
+      "description": noteController.text,
+      "hasStandby": hasStandby.value,
+      "isClustered": isClustered.value,
+      "thresholdAsmDiskGroup": asmDiskController.text == '' ? 0 : int.parse(asmDiskController.text),
+      "thresholdFra": fraController.text == '' ? 0 : int.parse(fraController.text),
+      "thresholdOSMountPoint": mountPointController.text == '' ? 0 : int.parse(mountPointController.text),
+      "thresholdTablespace": tableSpaceController.text == '' ? 0 : int.parse(tableSpaceController.text),
+    };
+    final response = await DatabaseRepository.instance.addDatabase(data);
+    if (response.errorModel == null) {
+      Get.back();
+      await getListDatabase(
+        customerId: customerModel.value.customerId!,
+        page: page,
+        size: 50,
+      );
+      Get.defaultDialog(
+        titlePadding: EdgeInsets.symmetric(vertical: 8),
+        title: "Thông báo",
+        middleText: "Thêm database thành công",
+        backgroundColor: Colors.white,
+        titleStyle: TextStyle(color: Colors.black),
+        middleTextStyle: TextStyle(color: Colors.blue),
+      );
     }
   }
 }

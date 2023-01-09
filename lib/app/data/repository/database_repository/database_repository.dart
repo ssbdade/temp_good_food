@@ -28,4 +28,46 @@ class DatabaseRepository extends Repository {
       );
     }
   }
+
+  Future<ResponseModel<dynamic>> updateStatusDB(int databaseId, bool status) async {
+    final response = await putMethod(
+      url: status == true ? '/v1/databases/$databaseId/deactivate' : '/v1/databases/$databaseId/activate',
+      responseHeader: true,
+      params: {
+        'id': databaseId,
+      },
+    );
+    if (response is ErrorModel) {
+      return ResponseModel(errorModel: response);
+    } else
+      return ResponseModelSuccess(data: response);
+  }
+
+  Future<ResponseModel<dynamic>> deleteDatabase(int databaseId) async {
+    final response = await deleteMethod(
+      url: '/v1/databases/$databaseId',
+      responseHeader: true,
+      params: {
+        'id': databaseId,
+      },
+    );
+    if (response is ErrorModel) {
+      return ResponseModel(errorModel: response);
+    } else
+      return ResponseModelSuccess(data: response);
+  }
+
+  Future<ResponseModel<dynamic>> addDatabase(
+    Map<String, dynamic> data,
+  ) async {
+    final response = await postMethod(
+      url: '/v1/databases',
+      responseHeader: true,
+      data: data,
+    );
+    if (response is ErrorModel) {
+      return ResponseModel(errorModel: response);
+    } else
+      return ResponseModelSuccess(data: response);
+  }
 }

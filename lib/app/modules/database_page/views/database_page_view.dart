@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:temp_good_food/app/data/data_bases_data.dart';
 import 'package:temp_good_food/app/models/database_model.dart';
@@ -53,7 +54,6 @@ class DatabasePageView extends GetView<DatabasePageController> {
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
           controller.listCustomerSuggest.clear();
-          inspect(controller.listData);
         },
         child: SingleChildScrollView(
           child: Column(
@@ -65,6 +65,10 @@ class DatabasePageView extends GetView<DatabasePageController> {
                 ),
                 child: TextFormField(
                   controller: controller.searchCtrl,
+                  onTap: () {
+                    controller.onSearchCustomer.value = true;
+                    controller.searchCustomer(controller.searchCtrl.text);
+                  },
                   onChanged: (value) {
                     controller.onSearchCustomer.value = true;
                     controller.searchCustomer(value);
@@ -97,11 +101,12 @@ class DatabasePageView extends GetView<DatabasePageController> {
                               (e) => InkWell(
                                 onTap: () async {
                                   controller.searchCtrl.text = e.customerName ?? '';
-                                  await controller.getListDatabase(customerId: e.customerId, page: 0, size: 20);
+                                  await controller.getListDatabase(customerId: e.customerId!, page: 0, size: 20);
                                   controller.customerModel.value = e;
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  controller.listCustomerSuggest.clear();
                                   controller.listCustomerSuggest.value.clear();
+                                  controller.listCustomerSuggest.clear();
+                                  controller.listCustomerSuggest.refresh();
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -152,11 +157,103 @@ class DatabasePageView extends GetView<DatabasePageController> {
                     : Container(),
               ),
               SingleChildScrollView(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.only(bottom: 48),
                 child: Obx(
                   () => controller.listData.isNotEmpty
                       ? DataTableView(
+                          isExpanded: true,
+                          updateStatus: (database, index) {
+                            controller.updateStatusDatabase(database);
+                          },
+                          callBack: (dataBase, index) {
+                            showCupertinoModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Material(
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 48,
+                                        horizontal: 16,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            'Cảnh báo',
+                                            style: titleStyle.copyWith(fontSize: 20),
+                                          ),
+                                          AppGap.h16,
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Bạn có chắc muốn xóa Database: ',
+                                                  style: baseStyle.copyWith(
+                                                    color: Colors.black54,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: '${dataBase.dbName} ',
+                                                  style: baseStyle.copyWith(
+                                                    fontSize: 18,
+                                                    color: Color(0xff03A9F4),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: 'ra khỏi hệ thống giám sát ?',
+                                                  style: baseStyle.copyWith(
+                                                    color: Colors.black54,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          AppGap.h16,
+                                          Text(
+                                            'Lưu ý: hành động này sẽ không thể hoàn tác',
+                                            style: titleStyle.copyWith(fontSize: 14),
+                                          ),
+                                          AppGap.h16,
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                  child: Text(
+                                                    "Hủy thao tác",
+                                                    style: titleStyle.copyWith(
+                                                      color: Colors.blue,
+                                                    ),
+                                                  ),
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              AppGap.w24,
+                                              Expanded(
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    controller.deleteDatabase(dataBase, index);
+                                                  },
+                                                  child: Text("Xóa"),
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.blue,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
                           data: controller.listData.value,
                         )
                       : Container(),
@@ -166,182 +263,215 @@ class DatabasePageView extends GetView<DatabasePageController> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return AlertDialog(
-                  title: const Text('Add Database'),
-                  content: SingleChildScrollView(
-                    child: Form(
-                      key: controller.formKey,
-                      child: Column(
-                        children: [
-                          AppTextField(
-                            hintText: 'DB Name:',
-                            compulsory: true,
-                            textEditingController: controller.dbNameController,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: true,
-                            hintText: 'DB ID:',
-                            textEditingController: controller.dbIdController,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            textEditingController: controller.dbRoleController,
-                            hintText: 'DB Role:',
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            textEditingController: controller.dbVersionController,
-                            hintText: 'DB Version:',
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: true,
-                            textEditingController: controller.customerController,
-                            hintText: 'Khách Hàng:',
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            textEditingController: controller.asmDiskController,
-                            hintText: 'Threshold Asm Disk Group:',
-                            textInputType: TextInputType.number,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            textEditingController: controller.fraController,
-                            hintText: 'Threshold Fra:',
-                            textInputType: TextInputType.number,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            textEditingController: controller.mountPointController,
-                            hintText: 'Threshold OS Mount Point:',
-                            textInputType: TextInputType.number,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            textEditingController: controller.tableSpaceController,
-                            hintText: 'Threshold TableSpace:',
-                            textInputType: TextInputType.number,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          AppTextField(
-                            compulsory: false,
-                            hintText: 'Ghi chú:',
-                            textEditingController: controller.noteController,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(
-                                width: 100,
-                                child: Text(
-                                  'Trạng Thái:',
-                                  maxLines: 3,
-                                  style: TextStyle(
-                                    fontSize: 15,
+      floatingActionButton: Obx(
+        () => controller.customerModel.value.customerId == null
+            ? Container()
+            : FloatingActionButton(
+                onPressed: () async {
+                  showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: const Text('Add Database'),
+                          content: SingleChildScrollView(
+                            child: Form(
+                              key: controller.formKey,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 16,
                                   ),
+                                  AppTextField(
+                                    hintText: 'DB Name:',
+                                    compulsory: true,
+                                    textEditingController: controller.dbNameController,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: true,
+                                    hintText: 'DB ID:',
+                                    textInputType: TextInputType.number,
+                                    textEditingController: controller.dbIdController,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: true,
+                                    hintText: 'DB TYPE:',
+                                    textEditingController: controller.dbTypeController,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    textEditingController: controller.dbRoleController,
+                                    hintText: 'DB Role:',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    textEditingController: controller.dbVersionController,
+                                    hintText: 'DB Version:',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          'Khách hàng',
+                                          style: baseStyle.copyWith(fontSize: 16),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                            ),
+                                            color: Color(0xffDDDDDD),
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: Text(
+                                            '${controller.customerModel.value.customerName}',
+                                            style: baseStyle,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    textEditingController: controller.asmDiskController,
+                                    hintText: 'Threshold Asm Disk Group: ',
+                                    textInputType: TextInputType.number,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    textEditingController: controller.fraController,
+                                    hintText: 'Threshold Fra: ',
+                                    textInputType: TextInputType.number,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    textEditingController: controller.mountPointController,
+                                    hintText: 'Threshold OS Mount Point: ',
+                                    textInputType: TextInputType.number,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    textEditingController: controller.tableSpaceController,
+                                    hintText: 'Threshold TableSpace: ',
+                                    textInputType: TextInputType.number,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(
+                                    () => CheckboxListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      checkColor: Colors.white,
+                                      activeColor: Colors.blue,
+                                      title: Text(
+                                        'Cluster',
+                                        style: baseStyle.copyWith(fontSize: 16),
+                                      ),
+                                      value: controller.isClustered.value,
+                                      onChanged: (value) {
+                                        controller.isClustered.value = value ?? false;
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(
+                                    () => CheckboxListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      checkColor: Colors.white,
+                                      activeColor: Colors.blue,
+                                      title: Text(
+                                        'Standby',
+                                        style: baseStyle.copyWith(fontSize: 16),
+                                      ),
+                                      value: controller.hasStandby.value,
+                                      onChanged: (value) {
+                                        controller.hasStandby.value = value ?? false;
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  AppTextField(
+                                    compulsory: false,
+                                    hintText: 'Ghi chú: ',
+                                    textEditingController: controller.noteController,
+                                  ),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            GestureDetector(
+                              onTap: () {
+                                if (controller.formKey.currentState!.validate()) {
+                                  controller.addNewDatabase();
+                                }
+                                print('add');
+                                print(controller.isActive.value);
+                              },
+                              child: const Text(
+                                'YES',
+                                style: TextStyle(
+                                  color: Color(0xFF6200EE),
                                 ),
                               ),
-                              Obx(() => CupertinoSwitch(
-                                  value: controller.isActive.value,
-                                  onChanged: (onChanged) {
-                                    controller.isActive.value = onChanged;
-                                  })),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  actions: [
-                    GestureDetector(
-                      onTap: () {
-                        if (controller.formKey.currentState!.validate()) {
-                          print(1);
-                          DataBasesData.dataBasesData.add(DataBase(
-                              id: (DataBasesData.dataBasesData.length + 1).toString(),
-                              dbName: controller.dbNameController.text,
-                              dbId: controller.dbIdController.text,
-                              dbRole: controller.dbRoleController.text,
-                              dbVersion: controller.dbVersionController.text,
-                              customer: controller.customerController.text,
-                              asmDisk: controller.asmDiskController.text.isEmpty
-                                  ? 0
-                                  : int.parse(controller.asmDiskController.text),
-                              fra: controller.fraController.text.isEmpty ? 0 : int.parse(controller.fraController.text),
-                              mountPoint: controller.mountPointController.text.isEmpty
-                                  ? 0
-                                  : int.parse(controller.mountPointController.text),
-                              tableSpace: controller.tableSpaceController.text.isEmpty
-                                  ? 0
-                                  : int.parse(controller.tableSpaceController.text),
-                              ghiChu: controller.noteController.text,
-                              isActive: controller.isActive.value));
-                          Get.back();
-                          controller.clear();
-                          controller.update();
-                        }
-                        print('add');
-                        print(controller.isActive.value);
-                      },
-                      child: const Text(
-                        'YES',
-                        style: TextStyle(
-                          color: Color(0xFF6200EE),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Text(
-                        'CANCEL',
-                        style: TextStyle(
-                          color: Color(0xFF6200EE),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              });
-        },
-        child: const Icon(
-          Icons.add,
-        ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: const Text(
+                                'CANCEL',
+                                style: TextStyle(
+                                  color: Color(0xFF6200EE),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
+                },
+                child: const Icon(
+                  Icons.add,
+                ),
+              ),
       ),
     );
   }

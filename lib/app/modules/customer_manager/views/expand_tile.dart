@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:temp_good_food/app/modules/drawer/views/panl.dart';
 
 class ExpandTile extends StatefulWidget {
-  ExpandTile(
-      {Key? key,
-      required this.id,
-      required this.name,
-      required this.sortName,
-      required this.email,
-      required this.phone,
-      required this.note, required this.isActive, required this.callBack, required this.isExpanded})
-      : super(key: key);
+  ExpandTile({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.sortName,
+    required this.email,
+    required this.phone,
+    required this.note,
+    required this.isActive,
+    required this.callBack,
+    required this.isExpanded,
+  }) : super(key: key);
   final String id;
   final String name;
   final String sortName;
@@ -40,9 +43,7 @@ class _ExpandTileState extends State<ExpandTile> {
         onExpansionChanged: (value) {
           widget.isExpanded = value;
           print(value);
-          setState(() {
-
-          });
+          setState(() {});
         },
         title: const Text('THÔNG TIN KHÁCH HÀNG'),
         children: [
@@ -54,10 +55,8 @@ class _ExpandTileState extends State<ExpandTile> {
               children: [
                 Container(
                   height: 10,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              color: Colors.black.withOpacity(0.1), width: 1))),
+                  decoration:
+                      BoxDecoration(border: Border(top: BorderSide(color: Colors.black.withOpacity(0.1), width: 1))),
                 ),
                 RichText(
                   text: TextSpan(children: [
@@ -106,7 +105,7 @@ class _ExpandTileState extends State<ExpandTile> {
                     TextSpan(
                       text: 'Tên ngắn gọn: ',
                       style: TextStyle(
-                        color:  Colors.black,
+                        color: Colors.black,
                         fontSize: 14,
                       ),
                     ),
@@ -187,7 +186,8 @@ class _ExpandTileState extends State<ExpandTile> {
                 ),
                 Row(
                   children: [
-                    Text('Trạng thái: ',
+                    Text(
+                      'Trạng thái: ',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -205,7 +205,6 @@ class _ExpandTileState extends State<ExpandTile> {
                             });
                           }),
                     )
-
                   ],
                 ),
                 const SizedBox(
@@ -213,7 +212,8 @@ class _ExpandTileState extends State<ExpandTile> {
                 ),
                 Row(
                   children: [
-                    Text('Thao tác: ',
+                    Text(
+                      'Thao tác: ',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -222,12 +222,10 @@ class _ExpandTileState extends State<ExpandTile> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        if(widget.isExpanded) {
-                          expansionTile.currentState!.collapse();
-                        }
                         widget.callBack();
                       },
-                      child: Icon(Icons.delete,
+                      child: Icon(
+                        Icons.delete,
                         color: Colors.red,
                       ),
                     )

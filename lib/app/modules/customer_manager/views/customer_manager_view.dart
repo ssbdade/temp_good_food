@@ -57,6 +57,7 @@ class CustomerManagerView extends GetView<CustomerManagerController> {
                           controller.data.length,
                           (index) => ExpandTile(
                               callBack: () {
+                                print('object');
                                 controller.data.removeAt(index);
                               },
                               isExpanded: controller.isExpanded.value,
